@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+  SUPERADMIN
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  email    String @unique
+  password String
+
+  name       String?
+  secondname String?
+  techstack  String[] @default([])
+  profession String?
+  bio        String?
+  avatar     String?
+
+  isBanned Boolean @default(false)
+
+  role       Role        @default(USER)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  portfolios Portfolio[]
+  roasts     Roast[]
+  likes      Like[]
+
+  followers Follow[] @relation("following") // meni follow qilganlar
+  following Follow[] @relation("follower")
+  follows   Follow[]
+}
+
+model Portfolio {
+  id              Int              @id @default(autoincrement())
+  title           String
+  description     String?
+  liveLink        String?
+  views           Int?             @default(0)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  userId          Int
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  portfolioImages PortfolioImage[]
+  roasts          Roast[]
+
+  likes Like[]
+}
+
+model PortfolioImage {
+  id          Int       @id @default(autoincrement())
+  imageUrl    String
+  portfolioId Int
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+}
+
+model Roast {
+  id      Int    @id @default(autoincrement())
+  content String
+
+  portfolioId Int
+  userId      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Like {
+  id          Int      @id @default(autoincrement())
+  portfolioId Int
+  userId      Int
+  createdAt   DateTime @default(now())
+
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([portfolioId, userId])
+}
+
+model Follow {
+  id          Int      @id @default(autoincrement())
+  followerId  Int //kim follow qilyabdi (user a)
+  followingId Int // kimni follow qilyabdi (user b)
+  createdAt   DateTime @default(now())
+
+  follower  User  @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following User  @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
+  user      User? @relation(fields: [userId], references: [id])
+  userId    Int?
+
+  @@unique([followerId, followingId])
+}
