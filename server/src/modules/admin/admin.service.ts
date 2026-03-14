@@ -37,6 +37,65 @@ class AdminService {
     })
   }
 
+  async getPortfolios() {
+    return await prisma.portfolio.findMany({
+      include: {
+        user: {
+          select: { id: true, username: true, avatar: true }
+        },
+        portfolioImages: true,
+        likes: true,
+        roasts: true
+      }
+    })
+  }
+  async removePortfolio(id: number) {
+    const portfolio = await prisma.portfolio.findUnique({ where: { id } })
+    if (!portfolio) throw new AppError(404, "Portfolio topilmadi")
+    return await prisma.portfolio.delete({ where: { id } })
+  }
+  async getRoasts() {
+    return await prisma.roast.findMany({
+      include: {
+        user: {
+          select: { id: true, username: true, avatar: true }
+        },
+        portfolio: true
+      }
+    })
+  }
+  async removeRoast(id: number) {
+    const roast = await prisma.roast.findUnique({ where: { id } })
+    if (!roast) throw new AppError(404, "Roast topilmadi")
+    return await prisma.roast.delete({ where: { id } })
+  }
+  async getStats() {
+    const [totalUsers, admins, superadmins, users, totalPortfolios, totalRoasts] = await Promise.all([
+      prisma.user.count(),
+      prisma.user.count({ where: { role: "ADMIN" } }),
+      prisma.user.count({ where: { role: "SUPERADMIN" } }),
+      prisma.user.count({ where: { role: "USER" } }),
+      prisma.portfolio.count(),
+      prisma.roast.count()
+    ])
+
+    return {
+      users: {
+        total: totalUsers,
+        byRole: {
+          USER: users,
+          ADMIN: admins,
+          SUPERADMIN: superadmins
+        }
+      },
+      portfolios: {
+        total: totalPortfolios
+      },
+      roasts: {
+        total: totalRoasts
+      }
+    }
+  }
 
 }
 

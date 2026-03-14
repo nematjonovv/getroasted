@@ -44,6 +44,52 @@ class AdminController {
     }
   }
 
+  async getPortfolios(req: Request, res: Response, next: NextFunction) {
+    try {
+      const portfolios = await adminService.getPortfolios()
+      res.status(200).json({ message: "Portfolios retrieved successfully", success: true, data: portfolios })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async removePortfolio(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = Number(req.params.id)
+      const deleted = await adminService.removePortfolio(id)
+      res.status(200).json({ message: "Portfolio deleted successfully", success: true, data: deleted })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getRoasts(req: Request, res: Response, next: NextFunction) {
+    try {
+      const roasts = await adminService.getRoasts()
+      res.status(200).json({ message: "Roasts retrieved successfully", success: true, data: roasts })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async removeRoast(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = Number(req.params.id)
+      const deleted = await adminService.removeRoast(id)
+      res.status(200).json({ message: "Roast deleted successfully", success: true, data: deleted })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getStats(req: Request, res: Response, next: NextFunction) {
+  try {
+    const stats = await adminService.getStats()
+    res.status(200).json({ message: "Stats retrieved successfully", success: true, data: stats })
+  } catch (error) {
+    next(error)
+  }
+}
 
 }
 

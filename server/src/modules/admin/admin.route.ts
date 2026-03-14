@@ -385,4 +385,407 @@ router.put("/admin/users/:id/ban", authMiddleware, checkRole("SUPERADMIN"), admi
  *                   example: "User not found"
  */
 router.put("/admin/users/:id/role", authMiddleware, checkRole("SUPERADMIN"), adminController.changeRole)
+
+
+/**
+ * @openapi
+ * /admin/portfolios:
+ *   get:
+ *     summary: Barcha portfoliolarni olish
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Portfoliolar muvaffaqiyatli olindi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Portfolios retrieved successfully"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: number
+ *                         example: 1
+ *                       title:
+ *                         type: string
+ *                         example: "My Portfolio"
+ *                       description:
+ *                         type: string
+ *                         example: "Portfolio description"
+ *                       liveLink:
+ *                         type: string
+ *                         example: "https://myportfolio.com"
+ *                       views:
+ *                         type: number
+ *                         example: 10
+ *                       user:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: number
+ *                             example: 1
+ *                           username:
+ *                             type: string
+ *                             example: "ali_valiyev"
+ *                           avatar:
+ *                             type: string
+ *                             example: "https://cloudinary.com/avatar.jpg"
+ *                       createdAt:
+ *                         type: string
+ *                         example: "2024-01-01T00:00:00.000Z"
+ *       401:
+ *         description: Token required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Token required"
+ *       403:
+ *         description: Ruxsat yo'q
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Ruxsat yo'q"
+ */
+router.get("/admin/portfolios", authMiddleware, checkRole("ADMIN", "SUPERADMIN"), adminController.getPortfolios)
+
+
+/**
+ * @openapi
+ * /admin/portfolios/{id}:
+ *   delete:
+ *     summary: Portfolioni o'chirish
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: Portfolio ID
+ *         example: 1
+ *     responses:
+ *       200:
+ *         description: Portfolio muvaffaqiyatli o'chirildi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Portfolio deleted successfully"
+ *       401:
+ *         description: Token required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Token required"
+ *       403:
+ *         description: Ruxsat yo'q
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Ruxsat yo'q"
+ *       404:
+ *         description: Portfolio topilmadi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Portfolio topilmadi"
+ */
+router.delete("/admin/portfolios/:id", authMiddleware, checkRole("ADMIN", "SUPERADMIN"), adminController.removePortfolio)
+
+/**
+ * @openapi
+ * /admin/roasts:
+ *   get:
+ *     summary: Barcha roastlarni olish
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Roastlar muvaffaqiyatli olindi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Roasts retrieved successfully"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: number
+ *                         example: 1
+ *                       content:
+ *                         type: string
+ *                         example: "Bu portfolio juda zo'r!"
+ *                       user:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: number
+ *                             example: 1
+ *                           username:
+ *                             type: string
+ *                             example: "ali_valiyev"
+ *                           avatar:
+ *                             type: string
+ *                             example: "https://cloudinary.com/avatar.jpg"
+ *                       portfolio:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: number
+ *                             example: 1
+ *                           title:
+ *                             type: string
+ *                             example: "My Portfolio"
+ *                       createdAt:
+ *                         type: string
+ *                         example: "2024-01-01T00:00:00.000Z"
+ *       401:
+ *         description: Token required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Token required"
+ *       403:
+ *         description: Ruxsat yo'q
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Ruxsat yo'q"
+ */
+router.get("/admin/roasts", authMiddleware, checkRole("ADMIN", "SUPERADMIN"), adminController.getRoasts)
+
+/**
+ * @openapi
+ * /admin/roasts/{id}:
+ *   delete:
+ *     summary: Roastni o'chirish
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: Roast ID
+ *         example: 1
+ *     responses:
+ *       200:
+ *         description: Roast muvaffaqiyatli o'chirildi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Roast deleted successfully"
+ *       401:
+ *         description: Token required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Token required"
+ *       403:
+ *         description: Ruxsat yo'q
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Ruxsat yo'q"
+ *       404:
+ *         description: Roast topilmadi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Roast topilmadi"
+ */
+router.delete("/admin/roasts/:id", authMiddleware, checkRole("ADMIN", "SUPERADMIN"), adminController.removeRoast)
+
+/**
+ * @openapi
+ * /admin/stats:
+ *   get:
+ *     summary: Statistikani olish
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Statistika muvaffaqiyatli olindi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Stats retrieved successfully"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     users:
+ *                       type: object
+ *                       properties:
+ *                         total:
+ *                           type: number
+ *                           example: 100
+ *                         byRole:
+ *                           type: object
+ *                           properties:
+ *                             USER:
+ *                               type: number
+ *                               example: 97
+ *                             ADMIN:
+ *                               type: number
+ *                               example: 2
+ *                             SUPERADMIN:
+ *                               type: number
+ *                               example: 1
+ *                     portfolios:
+ *                       type: object
+ *                       properties:
+ *                         total:
+ *                           type: number
+ *                           example: 45
+ *                     roasts:
+ *                       type: object
+ *                       properties:
+ *                         total:
+ *                           type: number
+ *                           example: 230
+ *       401:
+ *         description: Token required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Token required"
+ *       403:
+ *         description: Ruxsat yo'q
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Ruxsat yo'q"
+ */
+router.get("/admin/stats", authMiddleware, checkRole("ADMIN", "SUPERADMIN"), adminController.getStats)
+
 export const adminRouter = router
