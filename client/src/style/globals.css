@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0d0d0f;
+  --surface: #161619;
+  --primary: #ff4d1c;
+  --accent: #ff7a4d;
+  --spark: #ffb800;
+  --card: #1e1e24;
+  --text: #fff;
+  --text-50: rgba(255, 255, 255, 0.5);
+  --text-20: rgba(255, 255, 255, 0.2);
+  --text-10: rgba(255, 255, 255, 0.1);
+  --round-15: 15px;
+}
+.round15 {
+  border-radius: var(--round-15);
+}
+.syne {
+  font-family: var(--font-syne);
+}
+.dmsans {
+  font-family: var(--font-dmsans);
+}
