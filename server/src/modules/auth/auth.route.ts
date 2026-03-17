@@ -195,4 +195,8 @@ router.post("/auth/login", ValidateBody(loginShema), authController.login)
  *                   example: "Token required"
  */
 router.get("/auth/me", authMiddleware, authController.me)
+
+router.get("/test", (req, res) => {
+  res.json({ ok: true })
+})
 export const authRouter = router

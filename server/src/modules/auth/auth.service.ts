@@ -46,12 +46,12 @@ class AuthService {
 
     const isExist = await prisma.user.findUnique({ where: { username } })
     if (!isExist) {
-      throw new AppError(401, "Invalid credentials")
+      throw new AppError(400, "Invalid username or password")
     }
 
     const isMatch = await bcrypt.compare(password, isExist.password)
     if (!isMatch) {
-      throw new AppError(401, "Invalid credentials")
+      throw new AppError(400, "Invalid username or password")
     }
     const token = this.generateToken(isExist)
 

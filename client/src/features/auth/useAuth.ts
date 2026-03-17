@@ -24,11 +24,6 @@ export function useLogin() {
       localStorage.setItem("access_token", data.token)
       queryClient.invalidateQueries({ queryKey: ["me"] })
       router.push("/")
-    }, onError: (err) => {
-      if (axios.isAxiosError(err)) {
-        console.log(err.response?.data)  // server qaytargan error
-        console.log(err.response?.status) // status code
-      }
     }
   })
 }

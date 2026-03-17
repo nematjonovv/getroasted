@@ -6,13 +6,16 @@ import { useEffect } from "react";
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const { data: user, isLoading, isError } = useMe()
+  console.log(isLoading, isError);
+
   useEffect(() => {
-    router.push("/")
-    if (!isLoading && isError) {
+    if (isLoading) return
+
+    if (isError || !user) {
       router.push("/login")
     }
-  }, [isLoading, isError])
-
+  }, [isLoading, isError, user])
+  
   return (
     <>
       {children}

@@ -6,11 +6,7 @@ export const ValidateBody = (schema: z.ZodSchema) => (req: Request, res: Respons
   const result = schema.safeParse(req.body)
 
   if (!result.success) {
-    const errors = z.flattenError(result.error)
-    return res.status(400).json({
-      success: false,
-      errors
-    })
+    return next(result.error) 
   }
   req.body = result.data
   next()

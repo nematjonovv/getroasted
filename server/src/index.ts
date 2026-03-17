@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import cors from "cors"
 import express from "express"
 import SwaggerUi from "swagger-ui-express"
 import SwaggerSpec from "./config/swagger"
@@ -13,10 +14,12 @@ import { adminRouter } from './modules/admin/admin.route'
 const app = express()
 const PORT = 5000
 app.use(express.json())
-app.listen(PORT, () => {
-  console.log(`Server running on: http://localhost:${PORT}`)
-})
 
+
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true,
+}))
 
 app.use("/docs", SwaggerUi.serve)
 app.get("/docs", SwaggerUi.setup(SwaggerSpec))
@@ -33,3 +36,7 @@ app.use("/", adminRouter)
 
 // Error handler
 app.use(errorHandler);
+
+app.listen(PORT, () => {
+  console.log(`Server running on: http://localhost:${PORT}`)
+})
