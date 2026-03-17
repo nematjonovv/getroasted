@@ -12,8 +12,8 @@ function LoginForm() {
   const [password, setPassword] = useState('')
   const { success, error1 } = useNotification()
   const [err, serErr] = useState<IErrorFields<{ password: string[], username: string[] }> | null>(null)
-  const { mutate: login, isPending, isError } = useLogin()
   const [showErr, setShowErr] = useState(false)
+  const { mutate: login, isPending, isError } = useLogin()
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
