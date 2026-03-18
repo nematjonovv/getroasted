@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 function MainPage() {
-  redirect("/feed")
+  redirect("/feed/foryou")
 }
 
 export default MainPage;

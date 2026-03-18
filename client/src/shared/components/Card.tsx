@@ -8,6 +8,8 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { portfolioApi } from "@/src/features/portfolio/portfolio.api";
 import { queryClient } from "../lib/queryClient";
+import { useMe } from "@/src/features/auth/useAuth";
+import { useRouter } from "next/navigation";
 
 type Props = {
   username: string
@@ -35,12 +37,10 @@ function Card({ desc, isLiked, likeCount, profession,
   const { mutate: like } = useMutation({
     mutationFn: () => portfolioApi.like(portfolioId),
     onMutate: () => {
-      // darxol local state yangilanadi
       setLiked(prev => !prev)
       setCount(prev => liked ? prev - 1 : prev + 1)
     },
     onError: () => {
-      // xato bo'lsa qaytар
       setLiked(isLiked)
       setCount(likeCount)
     },
@@ -48,8 +48,10 @@ function Card({ desc, isLiked, likeCount, profession,
       queryClient.invalidateQueries({ queryKey: ["portfolios"] })
     }
   })
+  const router = useRouter()
+  const { data } = useMe()
   return (
-    <div className="w-full rounded-xl bg-(--surface) hover:bg-(--surface)/50 transition duration-100 cursor-pointer flex flex-col px-7.5 py-5">
+    <div onClick={() => router.push(`/feed/portfolio/${String(portfolioId)}`)} className={`w-full rounded-xl bg-(--surface) hover:bg-(--surface)/50 transition duration-100 cursor-pointer flex flex-col px-7.5 py-5 ${data?.user.username === username ? "hidden" : ""}`}>
       <div className=" rounded-xl">
         <div className="flex items-center justify-between">
           <UserCard title={username} />

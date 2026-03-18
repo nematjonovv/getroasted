@@ -1,8 +1,9 @@
 import apiReq from "@/src/shared/lib/axios";
-import { IPortfolioResponse } from "./portfolio.type";
+import { IPortfolioResponse, PortfolioDetailResponse } from "./portfolio.type";
 
 export const portfolioApi = {
   getPortfolio: (): Promise<IPortfolioResponse> => apiReq.get("/api/portfolios").then((p) => p.data),
-  like: (id: number) => apiReq.post(`/api/likes/${id}`)
+  like: (id: number) => apiReq.post(`/api/likes/${id}`),
+  getBySlug: (slug: number): Promise<PortfolioDetailResponse> => apiReq.get(`/api/portfolios/${slug}`).then((p) => p.data)
 }
 

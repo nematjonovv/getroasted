@@ -38,3 +38,10 @@ export function useLike(portfolioId: number, isLiked: boolean, likeCount: number
     }
   })
 }
+
+export function usePortfolioBySlug(id: string) {
+  return useQuery({
+    queryKey: ["portfolioBySlug"],
+    queryFn: () => portfolioApi.getBySlug(Number(id))
+  })
+}
