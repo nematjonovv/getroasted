@@ -1,5 +1,5 @@
 import apiReq from "@/src/shared/lib/axios";
-import { IAuthResponse, ILoginDto, IMeResponse, IRegisterDto, IResponseDto } from "./auth.type";
+import { IAuthResponse, ILoginDto, IMeResponse, IRegisterDto } from "./auth.type";
 
 export const authApi = {
   login: (data: ILoginDto): Promise<IAuthResponse> =>

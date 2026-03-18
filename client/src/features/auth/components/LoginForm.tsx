@@ -44,8 +44,6 @@ function LoginForm() {
     }
   }, [showErr]);
 
-  console.log(err);
-
   return (
     <form onSubmit={handleSubmit} className='w-1/2 flex flex-col space-y-5'>
       <label className='relative w-full mt-10 '>
