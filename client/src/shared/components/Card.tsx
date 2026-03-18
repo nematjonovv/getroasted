@@ -3,6 +3,11 @@ import PorfessionBadge from "./PorfessionBadge";
 import UserCard from "./UserCard";
 import Techstack from "./Techstack";
 import { Eye, Flame, MessageSquare, MoveRight } from "lucide-react";
+import { useLike } from "@/src/features/portfolio/usePortfolio";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { portfolioApi } from "@/src/features/portfolio/portfolio.api";
+import { queryClient } from "../lib/queryClient";
 
 type Props = {
   username: string
@@ -16,13 +21,33 @@ type Props = {
   isLiked: boolean
   likeCount: number
   viewCount: number
+  roastOwner: string
+  portfolioId: number
 }
 
 function Card({ desc, isLiked, likeCount, profession,
-  roast, roastCount, slug, techstach, title, username, viewCount
+  roast, roastCount, slug, techstach, title, username, viewCount, roastOwner, portfolioId
 }: Props) {
 
+  const [liked, setLiked] = useState(isLiked)
+  const [count, setCount] = useState(likeCount)
 
+  const { mutate: like } = useMutation({
+    mutationFn: () => portfolioApi.like(portfolioId),
+    onMutate: () => {
+      // darxol local state yangilanadi
+      setLiked(prev => !prev)
+      setCount(prev => liked ? prev - 1 : prev + 1)
+    },
+    onError: () => {
+      // xato bo'lsa qaytар
+      setLiked(isLiked)
+      setCount(likeCount)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["portfolios"] })
+    }
+  })
   return (
     <div className="w-full rounded-xl bg-(--surface) hover:bg-(--surface)/50 transition duration-100 cursor-pointer flex flex-col px-7.5 py-5">
       <div className=" rounded-xl">
@@ -34,7 +59,7 @@ function Card({ desc, isLiked, likeCount, profession,
           <p className="syne text-2xl">
             {title}
           </p>
-          <p className="text-sm text-(--text-50) syne">{desc.slice(0, 190)}... <Link href={`/feed/portfolio/${slug}`} className="text-(--accent) text-sm syne">see all</Link></p>
+          <p className="text-sm text-(--text-50) syne">{desc?.slice(0, 190)}... <Link href={`/feed/portfolio/${slug}`} className="text-(--accent) text-sm syne">see all</Link></p>
         </div>
         <Techstack tech={techstach} />
       </div>
@@ -43,7 +68,7 @@ function Card({ desc, isLiked, likeCount, profession,
         <div className="w-full overflow-y-scroll feed-scroll space-y-2">
           <div className="w-full bg-(--bg) rounded-r-2xl border-l-4 border-l-(--primary) py-3 px-4 flex items-center justify-between hover:bg-(--bg)/50">
             <div className="flex items-center gap-3">
-              <UserCard title="ahmad_k" />
+              <UserCard title={roastOwner} />
               <p className="text-(--text-50)">
                 {roast}
               </p>
@@ -53,8 +78,8 @@ function Card({ desc, isLiked, likeCount, profession,
         </div>
 
         <div className="flex gap-5 mt-10">
-          <button className={`flex text-sm syne items-center gap-1 cursor-pointer ${isLiked ? "text-(--primary)" : "text-(--text-50)"}`}>
-            <Flame /> {likeCount}
+          <button onClick={() => like()} className={`flex text-sm syne items-center gap-1 cursor-pointer ${liked ? "text-(--primary)" : "text-(--text-50)"}`}>
+            <Flame />{count}
           </button>
           <button className="flex text-(--text-50) text-sm syne
           items-center gap-1 cursor-pointer">

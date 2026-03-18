@@ -69,8 +69,10 @@ class PortfolioService {
     const portfolio = await prisma.portfolio.create({
       data: {
         title: data.title,
+        slug: data.title.toLowerCase().replace(/\s+/g, "-"),
         description: data.description,
         liveLink: data.liveLink,
+        githubLink: data.githubLink,
         userId,
         portfolioImages: {
           create: imageUrls.map((url) => ({ imageUrl: url }))

@@ -31,8 +31,6 @@ class PortfolioController {
       const file = req.files as Express.Multer.File[]
       const userId = Number(req.user?.id)
 
-      console.log("body:", req.body)        // shu yerda nima kelayapti
-      console.log("files:", req.files)
       if (!file) {
         return res.status(400).json({ success: false, message: "Rasm majburiy" })
       }

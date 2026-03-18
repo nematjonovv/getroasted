@@ -1,0 +1,40 @@
+"use client"
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { portfolioApi } from "./portfolio.api";
+import { queryClient } from "@/src/shared/lib/queryClient";
+import { IPortfolioResponse, Portfolio } from "./portfolio.type";
+
+export function useGetPortfolios() {
+  return useQuery({
+    queryKey: ["portfolios"],
+    queryFn: portfolioApi.getPortfolio,
+
+  })
+}
+
+export function useLike(portfolioId: number, isLiked: boolean, likeCount: number) {
+  return useMutation({
+    mutationFn: portfolioApi.like,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["me"] }),
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ["portfolios"] })
+      const previos = queryClient.getQueryData(['portfolios'])
+      queryClient.setQueryData(["portfolios"], (old: IPortfolioResponse) => ({
+        ...old,
+        data: old.data.map((p) =>
+          p.id === portfolioId
+            ? { ...p, isLiked: !isLiked, likeCount: isLiked ? likeCount - 1 : likeCount + 1 }
+            : p
+        )
+      }))
+      return { previos }
+    },
+    onError: (err, _, context) => {
+      // xato bo'lsa eski holatga qaytар
+      queryClient.setQueryData(["portfolios"], context?.previos)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["portfolios"] })
+    }
+  })
+}

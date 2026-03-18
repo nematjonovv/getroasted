@@ -2,7 +2,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { authApi } from "./auth.api";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 import { useNotification } from "@/src/shared/lib/NotificationProvider";
 
 export function useMe() {

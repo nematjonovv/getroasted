@@ -171,6 +171,10 @@ router.get("/api/portfolios/:id", authMiddleware, portfolioController.getById)
  *                 type: string
  *                 format: uri
  *                 example: "https://myportfolio.com"
+ *               githubLink:
+ *                 type: string
+ *                 format: uri
+ *                 example: "https://github.com/username/repo"
  *               portfolio_image:
  *                 type: array
  *                 items:
@@ -200,12 +204,18 @@ router.get("/api/portfolios/:id", authMiddleware, portfolioController.getById)
  *                     title:
  *                       type: string
  *                       example: "My Portfolio"
+ *                     slug:
+ *                       type: string
+ *                       example: "my-portfolio"
  *                     description:
  *                       type: string
  *                       example: "Portfolio description"
  *                     liveLink:
  *                       type: string
  *                       example: "https://myportfolio.com"
+ *                     githubLink:
+ *                       type: string
+ *                       example: "https://github.com/username/repo"
  *                     views:
  *                       type: number
  *                       example: 0
@@ -259,10 +269,7 @@ router.get("/api/portfolios/:id", authMiddleware, portfolioController.getById)
  *                   type: string
  *                   example: "Token required"
  */
-router.post("/api/portfolios", authMiddleware, uploadPortfolio.array("portfolio_image", 5), (req, res, next) => {
-  console.log("multer dan keyin body:", req.body)  // shu yerda nima bor?
-  next()
-}, ValidateBody(createPortfolioSchema), portfolioController.create)
+router.post("/api/portfolios", authMiddleware, uploadPortfolio.array("portfolio_image", 5), ValidateBody(createPortfolioSchema), portfolioController.create)
 
 /**
  * 
