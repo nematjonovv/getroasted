@@ -48,7 +48,7 @@ export function useLogout() {
 
   return () => {
     localStorage.removeItem('access_token')
-    queryClient.clear()  // barcha cacheni tozalaydi
+    queryClient.clear() 
     router.push('/login')
   }
 }

@@ -16,7 +16,7 @@
 .round15 {
   border-radius: var(--round-15);
 }
-.syne {
+.syne { 
   font-family: var(--font-syne);
 }
 .dmsans {
@@ -39,4 +39,12 @@
 
 .feed-scroll::-webkit-scrollbar-thumb:hover {
   background: var(--text-40);
+}
+
+.userstat-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 30px;
 }

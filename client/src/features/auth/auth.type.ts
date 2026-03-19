@@ -1,3 +1,5 @@
+import { Portfolio } from "../portfolio/portfolio.type"
+
 export interface ILoginDto {
   username: string
   password: string
@@ -35,8 +37,42 @@ export interface IUser {
   role: 'SUPERADMIN' | 'ADMIN' | 'USER'
   createdAt: string
   updatedAt: string
+  portfolios: PortfolioItem[]
+  following: FollowingItem[]
+  followers: FollowerItem[]
 }
 
+
+interface PortfolioItem {
+  id: number
+  slug: string
+  title: string
+  description: string
+  liveLink: string
+  githubLink: string
+  views: number
+  createdAt: string
+  updatedAt: string
+  userId: number
+}
+
+interface FollowUser {
+  id: number
+  username: string
+  name: string | null
+  avatar: string | null
+  profession: string | null
+}
+
+interface FollowingItem {
+  createdAt: string
+  following: FollowUser
+}
+
+interface FollowerItem {
+  createdAt: string
+  follower: FollowUser
+}
 export interface IMeResponse {
   success: boolean
   user: IUser

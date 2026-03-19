@@ -1,10 +1,7 @@
 "use client"
-import { useMe } from '@/src/features/auth/useAuth';
 import { usePortfolioBySlug } from '@/src/features/portfolio/usePortfolio';
 import { Carousel } from '@/src/shared/components/ImageCarousel';
-import UserCard from '@/src/shared/components/UserCard';
-import { ChevronLeft, ExternalLink, Eye, Flame, Github, StepBack } from 'lucide-react';
-import Link from 'next/link';
+import { ChevronLeft, ExternalLink, Eye, Flame, Github } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { use, useState } from 'react';
 type Props = {
@@ -88,7 +85,7 @@ function page({ params }: Props) {
             <div className="space-y-3">
               {portfolio.roasts.map((r) => (
                 <div key={r.id} className="flex gap-3">
-                  <div className="w-7 h-7 rounded-full bg-[#3C3489] flex items-center justify-center text-[10px] font-medium text-[#CECBF6] flex-shrink-0 mt-0.5">
+                  <div className="w-7 h-7 rounded-full bg-[#3C3489] flex items-center justify-center text-[10px] font-medium text-[#CECBF6] shrink-0 mt-0.5">
                     {r.user.username.slice(0, 2).toUpperCase()}
                   </div>
                   <div className="flex-1">
