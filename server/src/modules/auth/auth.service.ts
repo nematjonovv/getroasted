@@ -59,7 +59,41 @@ class AuthService {
   }
 
   async me(id: number) {
-    const user = await prisma.user.findUnique({ where: { id }, omit: { password: true } })
+    const user = await prisma.user.findUnique({
+      where: { id },
+      omit: { password: true },
+      include: {
+        portfolios: true,
+        following: {
+          select: {
+            createdAt: true,   // qachon follow qilgani
+            following: {
+              select: {
+                id: true,
+                username: true,
+                name: true,
+                avatar: true,
+                profession: true,
+              }
+            }
+          }
+        },
+        followers: {
+          select: {
+            createdAt: true,
+            follower: {
+              select: {
+                id: true,
+                username: true,
+                name: true,
+                avatar: true,
+                profession: true,
+              }
+            }
+          }
+        }
+      }
+    })
 
     return user
   }

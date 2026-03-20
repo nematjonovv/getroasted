@@ -15,9 +15,21 @@ class UserService {
         username: true,
         bio: true,
         portfolios: {
-          include: { portfolioImages: true }
+          include: {
+            roasts: {
+              select: {
+                id: true,
+                content: true,
+                user: {
+                  select: {
+                    avatar: true,
+                    username: true,
+                  }
+                }
+              }
+            }
+          }
         },
-        roasts: true,
         followers: {
           select: { followerId: true }
         },
