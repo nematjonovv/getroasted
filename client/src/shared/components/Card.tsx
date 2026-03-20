@@ -66,7 +66,7 @@ function Card({ desc, isLiked, likeCount, profession,
         <Techstack tech={techstach} />
       </div>
       <div className="w-full h-px my-5 bg-(--text-50)" />
-      <div className="rounded-xl">
+      <div className="rounded-xl relative">
         <div className="w-full overflow-y-scroll feed-scroll space-y-2">
           <div className="w-full bg-(--bg) rounded-r-2xl border-l-4 border-l-(--primary) py-3 px-4 flex items-center justify-between hover:bg-(--bg)/50">
             <div className="flex items-center gap-3">
@@ -80,7 +80,7 @@ function Card({ desc, isLiked, likeCount, profession,
         </div>
 
         <div className="flex gap-5 mt-10">
-          <button onClick={() => like()} className={`flex text-sm syne items-center gap-1 cursor-pointer ${liked ? "text-(--primary)" : "text-(--text-50)"}`}>
+          <button onClick={(e) => { e.stopPropagation(); like() }} className={`flex z-50 text-sm syne items-center gap-1 cursor-pointer ${liked ? "text-(--primary)" : "text-(--text-50)"}`}>
             <Flame />{count}
           </button>
           <button className="flex text-(--text-50) text-sm syne
