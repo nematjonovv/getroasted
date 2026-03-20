@@ -2,6 +2,7 @@
 import { usePortfolioBySlug } from '@/src/features/portfolio/usePortfolio';
 import { Carousel } from '@/src/shared/components/ImageCarousel';
 import { ChevronLeft, ExternalLink, Eye, Flame, Github } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { use, useState } from 'react';
 type Props = {
@@ -29,7 +30,6 @@ function page({ params }: Props) {
 
       <div className="mt-4 space-y-4">
 
-        {/* header */}
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-xl font-semibold mb-2">{portfolio.title}</h1>
@@ -89,7 +89,11 @@ function page({ params }: Props) {
                     {r.user.username.slice(0, 2).toUpperCase()}
                   </div>
                   <div className="flex-1">
-                    <span className="text-xs text-(--text-50) font-medium">@{r.user.username}</span>
+                    <span className="text-xs text-(--text-50) font-medium">
+                      <Link href={`/profile/${r.user.username}`}>
+                        @{r.user.username}
+                      </Link>
+                    </span>
                     <p className="text-sm mt-0.5 leading-relaxed">{r.content}</p>
                   </div>
                 </div>

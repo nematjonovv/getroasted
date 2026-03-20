@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 function UserCard({ title, profession }: { title: string, profession?: string }) {
   return (
@@ -6,9 +7,11 @@ function UserCard({ title, profession }: { title: string, profession?: string })
         HN
       </span>
       <div>
-        <p>
-          @{title}
-        </p>
+        <div onClick={(e) => e.stopPropagation()}>
+          <Link href={`/profile/${title}`}>
+            {title}
+          </Link>
+        </div>
         <p className="text-[10px] text-(--text-50)">
           {profession}
         </p>

@@ -5,8 +5,8 @@ import { useMe } from "../../auth/useAuth";
 function ProfileCard({ username }: { username: string }) {
   const { isError, isLoading, isOwner, me, user } = useProfilePage(username)
   const userData = user?.data
-  const nameFirstLetter = userData?.name?.charAt(0) || 'a'
-  const secondNameFirstLetter = userData?.secondname?.charAt(0) || "b"
+  const nameFirstLetter = userData?.name?.charAt(0) || userData?.username.slice(0, 1).toUpperCase()
+  const secondNameFirstLetter = userData?.secondname?.charAt(0) || userData?.username.slice(1, 2).toUpperCase()
   const COLORS = [
     '#ff4d1c',
     '#41b2e6',
