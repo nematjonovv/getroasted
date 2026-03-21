@@ -7,6 +7,7 @@ class UserService {
   async getByUserName(username: string, currentUserId?: number) {
     const user = await prisma.user.findUnique({
       where: { username }, select: {
+        id: true,
         avatar: true,
         name: true,
         secondname: true,

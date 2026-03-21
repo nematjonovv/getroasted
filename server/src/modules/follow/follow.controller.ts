@@ -14,6 +14,19 @@ class FollowController {
       next(error)
     }
   }
+
+  async checkFollow(req: Request, res: Response, next: NextFunction) {
+    try {
+      const followingId = Number(req.params.followerId)
+      const followerId = Number(req.user?.id)
+
+      const isFollowed = await followService.checkFollow(followingId, followerId)
+
+      res.status(200).json({ success: true, data: { isFollowed } })
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 

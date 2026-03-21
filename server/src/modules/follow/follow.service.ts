@@ -16,8 +16,12 @@ class FollowService {
       await prisma.follow.create({ data: { followerId, followingId } })
       return { followed: true }
     }
-
-
+  }
+  async checkFollow(followingId: number, followerId: number) {
+    const follow = await prisma.follow.findFirst({
+      where: { followerId, followingId }
+    })
+    return !!follow
   }
 }
 

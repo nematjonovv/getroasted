@@ -83,4 +83,67 @@ const router = express.Router()
  *                   example: "User topilmadi"
  */
 router.post("/api/follow/:userId", authMiddleware, followController.toggle)
+
+/**
+ * @openapi
+ * /api/isfollow/{followerId}:
+ *   get:
+ *     summary: Foydalanuvchi follow qilinganligini tekshirish
+ *     tags: [Follow]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: Tekshirilayotgan user ID
+ *         example: 1
+ *     responses:
+ *       200:
+ *         description: Follow holati muvaffaqiyatli tekshirildi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     isFollowing:
+ *                       type: boolean
+ *                       description: true - follow qilingan, false - follow qilinmagan
+ *                       example: true
+ *       401:
+ *         description: Token required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Token required"
+ *       404:
+ *         description: User topilmadi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "User topilmadi"
+ */
+router.get("/api/isfollow/:followerId", authMiddleware, followController.checkFollow)g
 export const followRouter = router
