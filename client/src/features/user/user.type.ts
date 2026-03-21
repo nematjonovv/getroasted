@@ -24,6 +24,7 @@ export interface Portfolio {
 }
 
 export interface UserProfile {
+  id: number
   avatar: string | null;
   name: string | null;
   secondname: string | null;

@@ -1,78 +1,57 @@
 
-const shimmer =
-  "relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_1.5s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent";
 
-function CardSkeleton() {
+
+export default function CardSkeleton() {
   return (
-    <div className="bg-[#1a1a1a] rounded-2xl p-6 w-full max-w-2xl space-y-5 border border-white/5 shadow-xl">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          {/* Avatar */}
-          <div
-            className={`w-9 h-9 rounded-full bg-white/10 ${shimmer}`}
-          />
-          {/* Username */}
-          <div
-            className={`h-4 w-28 rounded-md bg-white/10 ${shimmer}`}
-          />
+    <div className={`w-full rounded-xl bg-(--surface) hover:bg-(--surface)/50 transition duration-100 cursor-pointer flex flex-col px-7.5 py-5 `}>
+      <div className=" rounded-xl">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="h-10 w-10 bg-(--card) rounded-full text-sm text-(--primary)"></span>
+            <div>
+              <p className="bg-(--card) w-40 h-5 rounded-md">
+
+              </p>
+              <p className="bg-(--card) w-30 h-3 rounded-md mt-2"></p>
+            </div>
+          </div>
+          <span className="bg-(--card) w-30 h-7 rounded-md"></span>
         </div>
-        {/* Badge */}
-        <div
-          className={`h-8 w-36 rounded-full bg-white/10 ${shimmer}`}
-        />
+        <div className="space-y-2.5 my-4 ">
+          <p className="bg-(--card) w-80 h-10 rounded-md mt-5"></p>
+          <p className="bg-(--card) w-full h-20 rounded-md"></p>
+        </div>
+        <div className="flex gap-4 items-center">
+          <span className="bg-(--card) w-20 h-5 rounded-md"></span>
+          <span className="bg-(--card) w-30 h-5 rounded-md"></span>
+          <span className="bg-(--card) w-20 h-5 rounded-md"></span>
+          <span className="bg-(--card) w-50 h-5 rounded-md"></span>
+        </div>
       </div>
+      <div className="w-full h-px my-5 bg-(--text-50)" />
+      <div className="rounded-xl relative">
+        <div className="w-full overflow-y-scroll feed-scroll space-y-2">
+          <div className="w-full bg-(--card)/50 flex items-center justify-between px-5 h-20 rounded-md">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <span className="h-10 w-10 bg-(--card) rounded-full text-sm text-(--primary)"></span>
+                <div>
+                  <p className="bg-(--card) w-20 h-3 rounded-md">
 
-      {/* Title */}
-      <div className={`h-6 w-32 rounded-md bg-white/10 ${shimmer}`} />
-
-      {/* See all link */}
-      <div className={`h-3 w-16 rounded-md bg-white/10 ${shimmer}`} />
-
-      {/* Tags */}
-      <div className="flex gap-2">
-        {[64, 88, 64].map((w, i) => (
-          <div
-            key={i}
-            className={`h-7 rounded-full bg-white/10 ${shimmer}`}
-            style={{ width: `${w}px` }}
-          />
-        ))}
-      </div>
-
-      {/* Divider */}
-      <div className="h-px bg-white/5" />
-
-      {/* Comment row */}
-      <div className="flex items-center justify-between pl-3 border-l-2 border-[#c0392b]/60">
-        <div className="flex items-center gap-3">
-          <div
-            className={`w-8 h-8 rounded-full bg-white/10 ${shimmer}`}
-          />
-          <div className="space-y-2">
-            <div
-              className={`h-3 w-20 rounded-md bg-white/10 ${shimmer}`}
-            />
-            <div
-              className={`h-3 w-32 rounded-md bg-white/10 ${shimmer}`}
-            />
+                  </p>
+                </div>
+              </div>
+              <p className="bg-(--card) w-70 h-5 rounded-md"></p>
+            </div>
+            <span className="bg-(--card) w-40 h-5 rounded-md"></span>
           </div>
         </div>
-        {/* Roasts badge */}
-        <div
-          className={`h-4 w-24 rounded-md bg-white/10 ${shimmer}`}
-        />
-      </div>
 
-      {/* Footer icons */}
-      <div className="flex items-center gap-5 pt-1">
-        {[40, 40, 40].map((w, i) => (
-          <div
-            key={i}
-            className={`h-4 rounded-md bg-white/10 ${shimmer}`}
-            style={{ width: `${w}px` }}
-          />
-        ))}
+        <div className="flex gap-5 mt-10">
+          <button className={`bg-(--card) w-10 h-5 rounded-md`}></button>
+          <button className="bg-(--card) w-10 h-5 rounded-md"></button>
+          <button className="bg-(--card) w-10 h-5 rounded-md"></button>
+        </div>
       </div>
     </div>
   );

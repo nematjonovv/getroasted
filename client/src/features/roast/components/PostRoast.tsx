@@ -33,7 +33,7 @@ function PostRoast({ portfolioId }: { portfolioId: string }) {
 
       <div className="flex justify-end mt-2">
         <button
-          className={`text-md px-4 py-1.5 rounded-lg text-white  $transition-all hover:opacity-90 disabled:opacity-40 ${!roastText.trim() ? "cursor-not-allowed" : "cursor-pointer"}`}
+        className={`text-md px-4 py-1.5 rounded-lg text-white  $transition-all hover:opacity-90 disabled:opacity-40 ${!roastText.trim() ? "cursor-not-allowed" : "cursor-pointer"}`}
           style={{ background: "#D85A30" }}
           disabled={!roastText.trim()}
           onClick={() => handelRoast()}
