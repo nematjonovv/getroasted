@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 
 type Props = {
   username: string
-  profession: string,
+  profession: string | null,
   title: string
   desc: string
   techstach: string[]

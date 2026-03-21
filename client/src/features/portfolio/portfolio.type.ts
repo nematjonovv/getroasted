@@ -36,10 +36,12 @@ type PortfolioDetail = {
   createdAt: string
   updatedAt: string
   userId: number
+  techstack: string[]
   user: {
     id: number
     username: string
     avatar: string | null
+    profession?: string
   }
   portfolioImages: PortfolioImage[]
   roasts: Roast2[]
@@ -62,9 +64,11 @@ export type Portfolio = {
   createdAt: string
   updatedAt: string
   userId: number
+  techstack: string[]
   user: {
     id: number
     username: string
+    profession?: string
   }
   roasts: Roast[]
   likeCount: number

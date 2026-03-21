@@ -5,20 +5,7 @@ import Card from "@/src/shared/components/Card";
 import { Dots } from "@/src/shared/ui/Loader";
 
 function Foryou() {
-  const data = {
-    username: "hikmatillo_n",
-    profession: "Fullstack developer",
-    title: "Makon design studio - Fullstack website",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi provident quos officiis, quibusdam aliquid praesentium consequuntur numquam quisquam sunt nobis accusamus.",
-    techstach: ["NextJS", "TailwindCSS", "NodeJS"],
-    roast: "not terrible.... but questionable",
-    slug: "makon-design-studio",
-    roastCount: 31,
-    isLiked: false,
-    likeCount: 124,
-    viewCount: 840
-  }
-  const { data: portfolio, isLoading, isError } = useGetPortfolios()
+  const { data: portfolio, isLoading } = useGetPortfolios()
 
   return (
     <div className="space-y-5">
@@ -28,10 +15,10 @@ function Foryou() {
           <Card
             key={p.id}
             username={p.user.username}
-            profession={data.profession}
+            profession={p.user.profession || null}
             title={p.title}
             desc={p.description}
-            techstach={data.techstach}
+            techstach={p.techstack}
             roast={p.roasts[p.roasts.length - 1]?.content}
             roastOwner={p.roasts[p.roasts.length - 1]?.user.username}
             slug={p.slug}

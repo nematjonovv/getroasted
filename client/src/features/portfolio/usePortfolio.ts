@@ -15,7 +15,7 @@ export function useGetPortfolios() {
 export function useLike(portfolioId: number, isLiked: boolean, likeCount: number) {
   return useMutation({
     mutationFn: portfolioApi.like,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["me"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["me", likeCount], }),
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ["portfolios"] })
       const previos = queryClient.getQueryData(['portfolios'])
@@ -41,7 +41,16 @@ export function useLike(portfolioId: number, isLiked: boolean, likeCount: number
 
 export function usePortfolioBySlug(id: string) {
   return useQuery({
-    queryKey: ["portfolioBySlug"],
-    queryFn: () => portfolioApi.getBySlug(Number(id))
+    queryKey: ["portfolioBySlug", id],
+    queryFn: () => portfolioApi.getBySlug(Number(id)),
+    staleTime: 0
+  })
+}
+
+export function useFollowingPortfolio(id: string) {
+  return useQuery({
+    queryKey: ["followingPortfolio", id],
+    queryFn: () => portfolioApi.getFollowingPortfolio(id),
+    staleTime: 0
   })
 }

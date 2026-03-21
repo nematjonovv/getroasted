@@ -1,9 +1,11 @@
 
-function PorfessionBadge({ title }: { title: string }) {
+function PorfessionBadge({ title }: { title: string | null }) {
   return (
-    <p className="px-2.5 py-1.25 rounded-full bg-(--primary)/20 border border-(--primary) text-xs">
-      {title}
-    </p>
+    title ? (
+      <p className="px-2.5 py-1.5 rounded-full bg-(--primary)/20 border border-(--primary) text-xs">
+        {title}
+      </p>
+    ) : null
   );
 }
 
