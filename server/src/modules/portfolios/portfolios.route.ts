@@ -699,4 +699,76 @@ router.delete("/api/portfolios/:id", authMiddleware, checkRole("SUPERADMIN"), po
  *                   example: "Foydalanuvchi topilmadi"
  */
 router.get("/api/portfolios/following/:id", authMiddleware, portfolioController.getFollowingPortfolios)
+
+/**
+ * @openapi
+ * /api/portfolios/{portfolioId}/view:
+ *   patch:
+ *     summary: Portfolio ko'rilish sonini oshirish
+ *     tags: [Portfolios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: portfolioId
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: Portfolio ID
+ *         example: 12
+ *     responses:
+ *       200:
+ *         description: Ko'rilish soni muvaffaqiyatli oshirildi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Viewed"
+ *       400:
+ *         description: Noto'g'ri ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Invalid id"
+ *       401:
+ *         description: Token required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Token required"
+ *       404:
+ *         description: Portfolio topilmadi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Portfolio topilmadi"
+ */
+router.patch(`/api/portfolios/:portfolioId/view`, authMiddleware, portfolioController.incrementView)
 export const portfolioRouter = router

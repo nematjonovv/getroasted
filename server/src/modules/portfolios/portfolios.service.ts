@@ -170,6 +170,18 @@ class PortfolioService {
       }
     })
   }
+
+  async incrementView(id: number) {
+    if (!id) throw new AppError(400, "Invalid id")
+    await prisma.portfolio.update({
+      where: { id },
+      data: {
+        views: { increment: 1 }
+      }
+    })
+
+    return true
+  }
 }
 
 export const portfolioService = new PortfolioService()
