@@ -15,13 +15,13 @@ class RoastService {
       }
     })
 
-    return roast
+    return { content: roast.content, id: roast.id }
   }
 
   async getAll(portfolioId: number) {
     const roasts = await prisma.roast.findMany(
       {
-        where: { portfolioId},
+        where: { portfolioId },
         include: {
           user: {
             select: { id: true, username: true, avatar: true }

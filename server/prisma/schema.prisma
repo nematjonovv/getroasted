@@ -47,6 +47,7 @@ model Portfolio {
   description     String?
   liveLink        String?
   githubLink      String?
+  techstack       String[]
   views           Int?             @default(0)
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt

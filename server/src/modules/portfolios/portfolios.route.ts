@@ -13,6 +13,8 @@ const router = express.Router()
  *   get:
  *     summary: Barcha portfoliolarni olish
  *     tags: [Portfolios]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Portfoliolar muvaffaqiyatli olindi
@@ -582,4 +584,119 @@ router.put("/api/portfolios/:id", authMiddleware, ValidateBody(updatePortfolioSc
  *                   example: "Token required"
  */
 router.delete("/api/portfolios/:id", authMiddleware, checkRole("SUPERADMIN"), portfolioController.delete)
+
+/**
+ * @openapi
+ * /api/portfolios/following/{id}:
+ *   get:
+ *     summary: Follow qilingan userlarning portfoliolarini olish
+ *     tags: [Portfolios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: Foydalanuvchi ID
+ *         example: 1
+ *     responses:
+ *       200:
+ *         description: Follow qilingan userlarning portfoliolari muvaffaqiyatli olindi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     following:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           user:
+ *                             type: object
+ *                             properties:
+ *                               avatar:
+ *                                 type: string
+ *                                 nullable: true
+ *                                 example: "https://res.cloudinary.com/example.jpg"
+ *                               username:
+ *                                 type: string
+ *                                 example: "akbarov"
+ *                               profession:
+ *                                 type: string
+ *                                 nullable: true
+ *                                 example: "Frontend Developer"
+ *                               portfolios:
+ *                                 type: array
+ *                                 items:
+ *                                   type: object
+ *                                   properties:
+ *                                     id:
+ *                                       type: number
+ *                                       example: 1
+ *                                     slug:
+ *                                       type: string
+ *                                       example: "todo-app"
+ *                                     title:
+ *                                       type: string
+ *                                       example: "Todo App"
+ *                                     description:
+ *                                       type: string
+ *                                       example: "Portfolio description"
+ *                                     liveLink:
+ *                                       type: string
+ *                                       nullable: true
+ *                                       example: "https://myportfolio.com"
+ *                                     githubLink:
+ *                                       type: string
+ *                                       nullable: true
+ *                                       example: "https://github.com/example"
+ *                                     views:
+ *                                       type: number
+ *                                       example: 10
+ *                                     userId:
+ *                                       type: number
+ *                                       example: 1
+ *                                     createdAt:
+ *                                       type: string
+ *                                       example: "2024-01-01T00:00:00.000Z"
+ *                                     updatedAt:
+ *                                       type: string
+ *                                       example: "2024-01-01T00:00:00.000Z"
+ *       401:
+ *         description: Token required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Token required"
+ *       404:
+ *         description: Foydalanuvchi topilmadi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Foydalanuvchi topilmadi"
+ */
+router.get("/api/portfolios/following/:id", authMiddleware, portfolioController.getFollowingPortfolios)
 export const portfolioRouter = router

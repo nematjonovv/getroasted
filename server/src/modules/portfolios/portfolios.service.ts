@@ -8,7 +8,7 @@ class PortfolioService {
     const all = await prisma.portfolio.findMany({
       include: {
         user: {
-          select: { id: true, username: true }
+          select: { id: true, username: true, profession: true, avatar: true }
         },
         roasts: {
           include: {
@@ -27,7 +27,6 @@ class PortfolioService {
         isLiked: userId ? likes.some(l => l.userId === userId) : false
       }
     })
-    return all
   }
   async getById(id: number, userId: number) {
     const portfolio = await prisma.portfolio.findUnique({
@@ -73,6 +72,7 @@ class PortfolioService {
         description: data.description,
         liveLink: data.liveLink,
         githubLink: data.githubLink,
+        techstack: data.techstack,
         userId,
         portfolioImages: {
           create: imageUrls.map((url) => ({ imageUrl: url }))
@@ -132,6 +132,43 @@ class PortfolioService {
 
     const deleted = await prisma.portfolio.delete({ where: { id } })
     return deleted
+  }
+
+  async getFollowingPortfolio(id: number) {
+    if (!id) {
+      throw new AppError(400, "Invalid Id");
+    }
+    const portfolios = await prisma.portfolio.findMany({
+      where: {
+        user: {
+          followers: {
+            some: {
+              followerId: id
+            }
+          }
+        }
+      },
+      include: {
+        user: {
+          select: { id: true, username: true, profession: true, avatar: true }
+        },
+        roasts: {
+          include: {
+            user: { select: { id: true, username: true, avatar: true } }
+          }
+        },
+        likes: true
+      }
+    })
+
+    return portfolios.map(p => {
+      const { likes, ...rest } = p
+      return {
+        ...rest,
+        likeCount: likes.length,
+        isLiked: id ? likes.some(l => l.userId === id) : false
+      }
+    })
   }
 }
 

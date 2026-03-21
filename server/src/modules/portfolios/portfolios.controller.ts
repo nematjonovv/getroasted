@@ -74,6 +74,17 @@ class PortfolioController {
       next(error)
     }
   }
+
+  async getFollowingPortfolios(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = Number(req.user?.id)
+      const portfololios = await portfolioService.getFollowingPortfolio(userId)
+
+      res.status(200).json({ success: true, data: portfololios })
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export const portfolioController = new PortfolioController()
