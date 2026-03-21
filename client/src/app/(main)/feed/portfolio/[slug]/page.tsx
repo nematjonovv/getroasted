@@ -1,14 +1,11 @@
 "use client"
-import Roast from '@/src/features/portfolio/components/Roast';
-import { portfolioApi } from '@/src/features/portfolio/portfolio.api';
 import { usePortfolioBySlug } from '@/src/features/portfolio/usePortfolio';
+import PostRoast from '@/src/features/roast/components/PostRoast';
 import { Carousel } from '@/src/shared/components/ImageCarousel';
-import { queryClient } from '@/src/shared/lib/queryClient';
-import { useMutation } from '@tanstack/react-query';
 import { ChevronLeft, ExternalLink, Eye, Flame, Github } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { use, useState } from 'react';
+import { use } from 'react';
 type Props = {
   params: Promise<{ slug: string }>
 }
@@ -23,7 +20,8 @@ function page({ params }: Props) {
     <div className="min-h-full pb-16">
       <button
         onClick={() => router.back()}
-        className="cursor-pointer flex items-center gap-1 py-4 text-sm text-(--text-50) hover:text-(--primary) transition-colors"
+        className="cursor-pointer flex w-full items-center gap-1 py-4 text-md syne
+         text-(--text-50) hover:text-(--primary) transition-colors sticky top-0 z-50 bg-(--bg)"
       >
         <ChevronLeft size={16} /> Go back
       </button>
@@ -76,12 +74,12 @@ function page({ params }: Props) {
         <div className="border-t border-(--text-20)" />
 
         {/* roast input */}
-        <Roast portfolioId={String(portfolio.id)} />
+        <PostRoast portfolioId={String(portfolio.id)} />
 
         {/* roastlar */}
         <div>
-          <p className="text-xl text-(--primary) mb-4 uppercase tracking-wider">
-            {portfolio.roasts.length} Roast
+          <p className="text-md border-b border-(--text-20) text-(--primary) mb-4 lowercase tracking-wider syne">
+            {portfolio.roasts.length} roast
           </p>
 
           {portfolio.roasts.length === 0 ? (
@@ -92,18 +90,25 @@ function page({ params }: Props) {
           ) : (
             <div className="space-y-3">
               {portfolio.roasts.map((r) => (
-                <div key={r.id} className="flex gap-3">
-                  <div className="w-7 h-7 rounded-full bg-[#3C3489] flex items-center justify-center text-[10px] font-medium text-[#CECBF6] shrink-0 mt-0.5">
-                    {r.user.username.slice(0, 2).toUpperCase()}
+                <div key={r.id} className='flex items-end justify-between hover:bg-(--surface) transition duration-150 rounded-sm p-2'>
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-full bg-[#3C3489] flex items-center justify-center text-[10px] font-medium text-[#CECBF6] shrink-0 mt-0.5">
+                      {r.user.username.slice(0, 2).toUpperCase()}
+                    </div>
+                    <div className="flex gap-5">
+                      <div className="flex-1">
+                        <span className="text-xs text-(--text-50) font-medium">
+                          <Link href={`/profile/${r.user.username}`}>
+                            @{r.user.username}
+                          </Link>
+                        </span>
+                        <p className="text-md mt-0.5 leading-relaxed">{r.content}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <span className="text-xs text-(--text-50) font-medium">
-                      <Link href={`/profile/${r.user.username}`}>
-                        @{r.user.username}
-                      </Link>
-                    </span>
-                    <p className="text-sm mt-0.5 leading-relaxed">{r.content}</p>
-                  </div>
+                  <p className='text-sm text-(--text-20) syne'>
+                    {new Date(r.createdAt).toLocaleDateString()}
+                  </p>
                 </div>
               ))}
             </div>

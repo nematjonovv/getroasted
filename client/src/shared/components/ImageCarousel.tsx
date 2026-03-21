@@ -10,7 +10,7 @@ export function Carousel({ images }: { images: PortfolioImage[] }) {
   const next = () => setCurrent(i => i === images.length - 1 ? 0 : i + 1)
 
   return (
-    <div className="relative w-full overflow-hidden rounded-lg sticky top-0">
+    <div className="relative w-full overflow-hidden rounded-lg ">
       <img
         src={images[current]?.imageUrl}
         alt=""

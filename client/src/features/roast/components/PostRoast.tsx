@@ -1,10 +1,21 @@
 "use client"
-
 import { useState } from "react";
+import { usePostRoast } from "../useRoast";
 
-function Roast({ portfolioId }: { portfolioId: string }) {
+function PostRoast({ portfolioId }: { portfolioId: string }) {
   const [roastText, setRoastText] = useState("")
   const [focused, setFocused] = useState(false)
+
+  const data = {
+    content: roastText
+  }
+  const { mutate: post } = usePostRoast({ portfolioId, data })
+
+  const handelRoast = () => {
+    post()
+    setRoastText("")
+    setFocused(false)
+  }
   return (
     <div
       className="border border-(--text-20) rounded-xl p-3 transition-all"
@@ -25,6 +36,7 @@ function Roast({ portfolioId }: { portfolioId: string }) {
           className="text-md cursor-pointer px-4 py-1.5 rounded-lg text-white transition-all hover:opacity-90 disabled:opacity-40"
           style={{ background: "#D85A30" }}
           disabled={!roastText.trim()}
+          onClick={() => handelRoast()}
         >
           Roast
         </button>
@@ -33,4 +45,4 @@ function Roast({ portfolioId }: { portfolioId: string }) {
   );
 }
 
-export default Roast;
+export default PostRoast;
