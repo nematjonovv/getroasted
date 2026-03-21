@@ -42,21 +42,30 @@ model User {
 
 model Portfolio {
   id              Int              @id @default(autoincrement())
-  slug            String
+  slug            String           @unique
   title           String
   description     String?
   liveLink        String?
   githubLink      String?
   techstack       String[]
-  views           Int?             @default(0)
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   userId          Int
   user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   portfolioImages PortfolioImage[]
   roasts          Roast[]
+  views           Int              @default(0)
+  likes           Like[]
+  view            View[]
+}
 
-  likes Like[]
+model View {
+  id          Int      @id @default(autoincrement())
+  portfolioId Int
+  userId      Int?
+  createdAt   DateTime @default(now())
+
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id])
 }
 
 model PortfolioImage {

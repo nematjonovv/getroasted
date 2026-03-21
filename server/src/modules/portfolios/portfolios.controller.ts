@@ -87,9 +87,10 @@ class PortfolioController {
   }
   async incrementView(req: Request, res: Response, next: NextFunction) {
     try {
-      const id = req.params.portfolioId
+      const portfolioId = Number(req.params.portfolioId)
+      const userId = Number(req.user?.id)
 
-      await portfolioService.incrementView(Number(id))
+      await portfolioService.incrementView(portfolioId, userId)
 
       res.status(200).json({ success: true, message: "Viewed" })
     } catch (error) {

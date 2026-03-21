@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { prisma } from "../../lib/prisma";
 import { AppError } from "../../middleware/errorHandler.middleware";
 import { uploadImage } from "../../scripts/uploadImage.script";
@@ -65,10 +66,13 @@ class PortfolioService {
       })
     ) : []
 
+    const slug = data.title.toLowerCase().replace(/\s+/g, "-")
+    const isSlug = await prisma.portfolio.findUnique({ where: { slug: slug } })
+
     const portfolio = await prisma.portfolio.create({
       data: {
         title: data.title,
-        slug: data.title.toLowerCase().replace(/\s+/g, "-"),
+        slug: isSlug ? `${slug}-${randomUUID().slice(0, 3)}` : slug,
         description: data.description,
         liveLink: data.liveLink,
         githubLink: data.githubLink,
@@ -171,16 +175,20 @@ class PortfolioService {
     })
   }
 
-  async incrementView(id: number) {
-    if (!id) throw new AppError(400, "Invalid id")
-    await prisma.portfolio.update({
-      where: { id },
-      data: {
-        views: { increment: 1 }
-      }
+  async incrementView(portfolioId: number, userId: number) {
+    const viewed = await prisma.view.findFirst({
+      where: { portfolioId, userId }
     })
 
-    return true
+    if (!viewed) {
+      await prisma.view.create({
+        data: { portfolioId, userId }
+      })
+      await prisma.portfolio.update({
+        where: { id: portfolioId },
+        data: { views: { increment: 1 } }
+      })
+    }
   }
 }
 
