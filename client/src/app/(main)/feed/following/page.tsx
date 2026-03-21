@@ -15,6 +15,7 @@ function Following() {
         isLoading ? <div className="w-full h-screen flex justify-center items-center"><Dots /></div> : portfolio?.data.map((p) => (
           <Card
             key={p.id}
+            id={p.id}
             username={p.user.username}
             profession={p.user.profession || null}
             title={p.title}

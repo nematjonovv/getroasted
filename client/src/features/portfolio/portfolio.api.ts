@@ -14,6 +14,9 @@ export const portfolioApi = {
         .then((p) => p.data),
   getFollowingPortfolio: (id: string): Promise<IPortfolioResponse> =>
     apiReq.get(`/api/portfolios/following/${id}`)
-      .then((p) => p.data)
+      .then((p) => p.data),
+  viewPortfolio:
+    (portfolioId: string) =>
+      apiReq.patch(`/api/portfolios/${portfolioId}/view`).then((v) => v.data)
 }
 

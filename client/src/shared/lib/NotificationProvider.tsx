@@ -38,8 +38,8 @@ const CONFIG: Record<
   success: {
     icon: Check,
     // bar: "bg-emerald-500",
-    ring: "ring-emerald-200 dark:ring-emerald-800",
-    text: "text-emerald-700 dark:text-emerald-300",
+    ring: "ring-(--text-50) dark:ring-(--text-50)",
+    text: "text-(--text-50) dark:text-(--text-50)",
   },
   error1: {
     icon: CircleX,
@@ -123,7 +123,7 @@ function NotifItem({
       </span>
 
       {/* Message */}
-      <span className="flex-1 text-sm font-medium text-zinc-800 dark:text-zinc-100 leading-snug">
+      <span className="flex-1 text-sm font-medium text-zinc-800 dark:text-(--text-50) leading-snug">
         {notif.message}
       </span>
 

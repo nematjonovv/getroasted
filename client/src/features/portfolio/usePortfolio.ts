@@ -1,5 +1,5 @@
 "use client"
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { portfolioApi } from "./portfolio.api";
 import { queryClient } from "@/src/shared/lib/queryClient";
 import { IPortfolioResponse, Portfolio } from "./portfolio.type";
@@ -8,7 +8,6 @@ export function useGetPortfolios() {
   return useQuery({
     queryKey: ["portfolios"],
     queryFn: portfolioApi.getPortfolio,
-
   })
 }
 
@@ -52,5 +51,13 @@ export function useFollowingPortfolio(id: string) {
     queryKey: ["followingPortfolio", id],
     queryFn: () => portfolioApi.getFollowingPortfolio(id),
     staleTime: 0
+  })
+}
+
+export function useView(id: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: () => portfolioApi.viewPortfolio(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["usePortfolioBySlug", id] })
   })
 }

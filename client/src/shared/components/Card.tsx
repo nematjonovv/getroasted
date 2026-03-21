@@ -3,8 +3,8 @@ import PorfessionBadge from "./PorfessionBadge";
 import UserCard from "./UserCard";
 import Techstack from "./Techstack";
 import { Eye, Flame, MessageSquare, MoveRight } from "lucide-react";
-import { useLike } from "@/src/features/portfolio/usePortfolio";
-import { useState } from "react";
+import { useLike, useView } from "@/src/features/portfolio/usePortfolio";
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { portfolioApi } from "@/src/features/portfolio/portfolio.api";
 import { queryClient } from "../lib/queryClient";
@@ -12,6 +12,7 @@ import { useMe } from "@/src/features/auth/useAuth";
 import { useRouter } from "next/navigation";
 
 type Props = {
+  id: number
   username: string
   profession: string | null,
   title: string
@@ -27,7 +28,7 @@ type Props = {
   portfolioId: number
 }
 
-function Card({ desc, isLiked, likeCount, profession,
+function Card({ id, desc, isLiked, likeCount, profession,
   roast, roastCount, slug, techstach, title, username, viewCount, roastOwner, portfolioId
 }: Props) {
 

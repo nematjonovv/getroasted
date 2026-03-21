@@ -1,11 +1,11 @@
 "use client"
-import { usePortfolioBySlug } from '@/src/features/portfolio/usePortfolio';
+import { usePortfolioBySlug, useView } from '@/src/features/portfolio/usePortfolio';
 import PostRoast from '@/src/features/roast/components/PostRoast';
 import { Carousel } from '@/src/shared/components/ImageCarousel';
 import { ChevronLeft, ExternalLink, Eye, Flame, Github } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { use } from 'react';
+import { use, useEffect } from 'react';
 type Props = {
   params: Promise<{ slug: string }>
 }
@@ -14,6 +14,13 @@ function page({ params }: Props) {
   const router = useRouter()
   const { data: dataBySug } = usePortfolioBySlug(slug)
   const portfolio = dataBySug?.data
+  const { mutate: view } = useView(String(dataBySug?.data.id))
+
+  useEffect(() => {
+    if (dataBySug?.data?.id) {
+      view()
+    }
+  }, [dataBySug?.data?.id])
   if (!portfolio) return null
   const initials = portfolio.user.username.slice(0, 2).toUpperCase()
   return (
@@ -44,8 +51,8 @@ function page({ params }: Props) {
 
           <div className="flex flex-col items-end gap-2">
             <div className="flex items-center gap-3 text-md text-(--text-30)">
-              <span className="flex items-center gap-1"><Eye size={14} /> {portfolio.views}</span>
-              <span className="flex items-center gap-1"><Flame size={14} /> {portfolio.likeCount}</span>
+              <span className="flex items-center gap-1 syne"><Eye size={14} /> {portfolio.views}</span>
+              <span className="flex items-center gap-1 syne"><Flame size={14} /> {portfolio.likeCount}</span>
 
             </div>
             <div className="flex gap-2">
@@ -67,16 +74,12 @@ function page({ params }: Props) {
           </div>
         </div>
 
-        {/* description */}
         <p className="text-sm text-(--text-50) leading-relaxed">{portfolio.description}</p>
 
-        {/* divider */}
         <div className="border-t border-(--text-20)" />
 
-        {/* roast input */}
         <PostRoast portfolioId={String(portfolio.id)} />
 
-        {/* roastlar */}
         <div>
           <p className="text-md border-b border-(--text-20) text-(--primary) mb-4 lowercase tracking-wider syne">
             {portfolio.roasts.length} roast
