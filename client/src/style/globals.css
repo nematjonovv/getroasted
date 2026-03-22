@@ -16,13 +16,12 @@
 .round15 {
   border-radius: var(--round-15);
 }
-.syne { 
+.syne {
   font-family: var(--font-syne);
 }
 .dmsans {
   font-family: var(--font-dmsans);
 }
-
 
 .feed-scroll::-webkit-scrollbar {
   width: 4px;
@@ -41,10 +40,30 @@
   background: var(--text-40);
 }
 
-.userstat-item{
+.userstat-item {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 10px 30px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--surface) 25%,
+    rgba(255, 255, 255, 0.15) 50%,
+    var(--surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
 }

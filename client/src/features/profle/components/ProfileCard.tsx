@@ -3,6 +3,7 @@ import { useProfilePage } from "@/src/shared/hooks/useProfilePage";
 import { MessageSquare } from "lucide-react";
 import Link from "next/link";
 import FollowButton from "../../follow/components/FollowButton";
+import ProfileSkeleton from "@/src/shared/components/ProfileSkeleton";
 const COLORS = [
   '#ff4d1c',
   '#41b2e6',
@@ -26,7 +27,9 @@ function ProfileCard({ username }: { username: string }) {
     return COLORS[index]
   }
 
-  return (
+  return isLoading ? (
+    <ProfileSkeleton />
+  ) : (
     <div className="w-full flex flex-col items-center space-y-2 border-b-2 border-(--text-20) pb-5">
       <div className=" px-5.5 py-5.5 bg-(--primary)/20 inline-block rounded-full">
         {
@@ -91,7 +94,7 @@ function ProfileCard({ username }: { username: string }) {
       </div>
 
     </div>
-  );
+  )
 }
-
+{/* <ProfileSkeleton /> */ }
 export default ProfileCard;

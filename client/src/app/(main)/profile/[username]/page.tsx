@@ -8,7 +8,7 @@ async function ProfilePage({ params }: Props) {
     <div className="flex flex-col justify-center pt-10">
       <ProfileCard username={username} />
       <div className="w-full min-h-screen">
-
+        
       </div>
     </div>
   );
