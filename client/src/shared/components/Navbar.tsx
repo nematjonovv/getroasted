@@ -24,7 +24,7 @@ function Navbar() {
             key={href}
             size={30}
             onClick={() => router.push(href)}
-            className={`cursor-pointer transition duration-150 ${isActive ? "text-(--primary)" : "hover:text-(--primary)"
+            className={`cursor-pointer transition duration-150 ${isActive ? "text-(--primary)" : "hover:text-(--primary) active:scale-90"
               }`}
           />
         );

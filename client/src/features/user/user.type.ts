@@ -21,6 +21,8 @@ export interface Portfolio {
   updatedAt: string;
   userId: number;
   roasts: Roast[];
+  likeCount: number
+  isLiked: boolean
 }
 
 export interface UserProfile {
@@ -36,6 +38,8 @@ export interface UserProfile {
   followerCount: number;
   followingCount: number;
   isFollowed: boolean;
+  isLiked: boolean
+  likeCount: number
 }
 
 export interface UserProfileResponse {

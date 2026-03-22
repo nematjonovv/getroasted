@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { portfolioApi } from "./portfolio.api";
 import { queryClient } from "@/src/shared/lib/queryClient";
 import { IPortfolioResponse, Portfolio } from "./portfolio.type";
+import { useNotification } from "@/src/shared/lib/NotificationProvider";
 
 export function useGetPortfolios() {
   return useQuery({
@@ -59,5 +60,19 @@ export function useView(id: string) {
   return useMutation({
     mutationFn: () => portfolioApi.viewPortfolio(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["usePortfolioBySlug", id] })
+  })
+}
+
+export function useDeletePortfolio(id: string, username: string, onSuccess?: (message: string) => void, onError?: (message: string) => void) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: () => portfolioApi.deletePortfolio(id),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["user", username] })
+      onSuccess?.(data.message)
+    },
+    onError: (error: any) => {
+      onError?.(error?.response?.data?.message || "Something went wrong")
+    },
   })
 }

@@ -1,4 +1,5 @@
 "use client"
+import { useMe } from "@/src/features/auth/useAuth";
 import Tabs from "@/src/features/portfolio/components/Tabs";
 import { useGetPortfolios } from "@/src/features/portfolio/usePortfolio";
 import Card from "@/src/shared/components/Card";
@@ -10,6 +11,7 @@ import { Dots } from "@/src/shared/ui/Loader";
 
 function Foryou() {
   const { data: portfolio, isLoading } = useGetPortfolios()
+  const { data } = useMe()
 
   return (
     <div className="space-y-5">
@@ -20,7 +22,7 @@ function Foryou() {
             <CardSkeleton />
             <CardSkeleton />
           </div> :
-          portfolio?.data.map((p) => (
+          portfolio?.data.filter((u) => u.user.username !== data?.user.username).map((p) => (
             <Card
               key={p.id}
               id={p.id}

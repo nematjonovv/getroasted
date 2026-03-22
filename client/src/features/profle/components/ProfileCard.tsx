@@ -4,6 +4,8 @@ import { MessageSquare } from "lucide-react";
 import Link from "next/link";
 import FollowButton from "../../follow/components/FollowButton";
 import ProfileSkeleton from "@/src/shared/components/ProfileSkeleton";
+import ProfileThreeDot from "./ProfileThreeDot";
+import { useLogout } from "../../auth/useAuth";
 const COLORS = [
   '#ff4d1c',
   '#41b2e6',
@@ -26,7 +28,7 @@ function ProfileCard({ username }: { username: string }) {
     const index = str.charCodeAt(0) % COLORS.length
     return COLORS[index]
   }
-
+  const logout = useLogout()
   return isLoading ? (
     <ProfileSkeleton />
   ) : (
@@ -41,9 +43,12 @@ function ProfileCard({ username }: { username: string }) {
             </p>
         }
       </div>
-      <p className="text-(--primary)">
-        @{userData?.username}
-      </p>
+      <div className="flex items-center gap-1">
+        <p className="text-(--primary)">
+          @{userData?.username}
+        </p>
+        {isOwner ? <ProfileThreeDot onLogout={logout} /> : null}
+      </div>
       <p className="text-4xl font-semibold">
         {userData?.name} {userData?.secondname}
       </p>
@@ -76,22 +81,28 @@ function ProfileCard({ username }: { username: string }) {
           </Link>
         </div>
       }
-      <div className="flex flex-col gap-2 overflow-x-auto scrollbar-hide flex-wrap bg-(--surface) py-4 px-5 round15 border border-(--text-20) min-w-1/2">
-        <div className="flex gap-5">
-          {userData?.techstack.map((stack) => (
-            <div
-              key={stack}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1e1e24] border border-white/10 text-white/75 text-sm whitespace-nowrap shrink-0"
-            >
-              <div
-                className="w-2 h-2 rounded-full shrink-0"
-                style={{ background: getColor(stack) }}
-              />
-              <p className="syne">{stack}</p>
+      {
+        userData?.techstack.length !== 0 ? (
+          <div className="flex flex-col gap-2 overflow-x-auto scrollbar-hide flex-wrap bg-(--surface) py-4 px-5 round15 border border-(--text-20) min-w-1/2">
+            <div className="flex gap-5">
+              {userData?.techstack.map((stack) => (
+                <div
+                  key={stack}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1e1e24] border border-white/10 text-white/75 text-sm whitespace-nowrap shrink-0"
+                >
+                  <div
+                    className="w-2 h-2 rounded-full shrink-0"
+                    style={{ background: getColor(stack) }}
+                  />
+                  <p className="syne">{stack}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        ) : (
+          ""
+        )
+      }
 
     </div>
   )

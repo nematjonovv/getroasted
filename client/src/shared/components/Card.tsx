@@ -2,14 +2,16 @@ import Link from "next/link";
 import PorfessionBadge from "./PorfessionBadge";
 import UserCard from "./UserCard";
 import Techstack from "./Techstack";
-import { Eye, Flame, MessageSquare, MoveRight } from "lucide-react";
-import { useLike, useView } from "@/src/features/portfolio/usePortfolio";
+import { Dot, DotSquare, Eye, Flame, Menu, MessageSquare, MoveRight } from "lucide-react";
+import { useDeletePortfolio, useLike, useView } from "@/src/features/portfolio/usePortfolio";
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { portfolioApi } from "@/src/features/portfolio/portfolio.api";
 import { queryClient } from "../lib/queryClient";
 import { useMe } from "@/src/features/auth/useAuth";
 import { useRouter } from "next/navigation";
+import ThreeDot from "../ui/ThreeDot";
+import { useNotification } from "../lib/NotificationProvider";
 
 type Props = {
   id: number
@@ -50,13 +52,26 @@ function Card({ id, desc, isLiked, likeCount, profession,
     }
   })
   const router = useRouter()
-  const { data } = useMe()
+  const { data: me } = useMe()
+  const isOwner = me?.user.username === username
+
+  const { success, error1 } = useNotification()
+  const { mutate: deleteP } = useDeletePortfolio(
+    String(portfolioId),
+    username,
+    (message) => success(message),
+    (message) => error1(message)
+  )
   return (
-    <div onClick={() => router.push(`/feed/portfolio/${String(portfolioId)}`)} className={`w-full rounded-xl bg-(--surface) hover:bg-(--surface)/50 transition duration-100 cursor-pointer flex flex-col px-7.5 py-5 ${data?.user.username === username ? "hidden" : ""}`}>
+    <div onClick={() => router.push(`/feed/portfolio/${String(portfolioId)}`)} className={`w-full rounded-xl bg-(--surface) hover:bg-(--surface)/50 transition duration-100 cursor-pointer flex flex-col px-7.5 py-5`}>
+
       <div className=" rounded-xl">
         <div className="flex items-center justify-between">
           <UserCard title={username} />
-          <PorfessionBadge title={profession} />
+          <div className="flex gap-3">
+            <PorfessionBadge title={profession} />
+            {isOwner ? <ThreeDot onDelete={() => deleteP()} /> : null}
+          </div>
         </div>
         <div className="space-y-2.5 my-4 ">
           <p className="syne text-2xl">

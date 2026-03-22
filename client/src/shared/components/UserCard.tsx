@@ -9,7 +9,7 @@ function UserCard({ title, profession }: { title: string, profession?: string })
       <div>
         <div onClick={(e) => e.stopPropagation()}>
           <Link href={`/profile/${title}`}>
-            {title}
+            @{title}
           </Link>
         </div>
         <p className="text-[10px] text-(--text-50)">

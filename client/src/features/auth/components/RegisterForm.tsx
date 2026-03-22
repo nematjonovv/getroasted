@@ -74,7 +74,7 @@ function RegisterForm() {
           onChange={(e) => setPassword(e.target.value)} value={password}
           className={`border border-(--text-10) w-full rounded-2xl bg-(--card) h-13 pl-5 placeholder:text-(--text-50) text-(--text) outline-none focus:ring-1 focus:ring-(--primary) transition ${err?.errors?.password && showErr ? "ring-1 ring-red-600 border-red-600" : "border-(--text-10)"}`}
           type="password"
-          placeholder='Username' />
+          placeholder='Password' />
       </label>
 
 

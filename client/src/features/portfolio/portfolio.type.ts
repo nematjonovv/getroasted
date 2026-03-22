@@ -88,3 +88,8 @@ type Roast = {
     avatar: string | null
   }
 }
+
+export type PortfolioDeleteResponse = {
+  success: boolean,
+  message: string
+} 
