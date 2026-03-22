@@ -131,9 +131,9 @@ class PortfolioService {
   async delete(id: number, userId: number) {
     const portfolio = await prisma.portfolio.findUnique({ where: { id } })
     if (!portfolio) throw new AppError(404, "Portfolio topilmadi")
-
     if (portfolio.userId !== userId) throw new AppError(403, "Ruxsat yo'q")
 
+    await prisma.view.deleteMany({ where: { portfolioId: id } })
     const deleted = await prisma.portfolio.delete({ where: { id } })
     return deleted
   }

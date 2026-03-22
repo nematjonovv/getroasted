@@ -33,6 +33,9 @@ app.use("/", roastRouter)
 app.use("/", likeRouter)
 app.use("/", followRouter)
 app.use("/", adminRouter)
+app.get("/test1", (req, res) => {
+  res.json({ ok: true })
+})
 
 // Error handler
 app.use(errorHandler);

@@ -28,7 +28,8 @@ class UserService {
                   }
                 }
               }
-            }
+            },
+            likes: true
           }
         },
         followers: {
@@ -38,22 +39,26 @@ class UserService {
           select: {
             followingId: true
           }
-        }
+        },
       }
     })
     if (!user) throw new AppError(404, "User topilmadi")
 
-    const { followers, following, ...rest } = user
+    const { followers, following, portfolios, ...rest } = user
     return {
       ...rest,
       followerCount: followers.length,
       followingCount: following.length,
       isFollowed: currentUserId
         ? followers.some(f => f.followerId === currentUserId)
-        : false  // current user bu userni follow qilganmi
+        : false,
+      portfolios: user.portfolios.map(portfolio => ({
+        ...portfolio,
+        likeCount: portfolio.likes.length,
+        isLiked: currentUserId ? portfolio.likes.some(l => l.id === currentUserId) : false
+      }))
     }
 
-    return user
   }
   async updatedProfile(id: number, data: profileUpdateDto) {
     const { bio, name, profession, secondname, techstack, username } = data

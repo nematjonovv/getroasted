@@ -490,7 +490,7 @@ router.put("/api/portfolios/:id", authMiddleware, ValidateBody(updatePortfolioSc
  * @openapi
  * /api/portfolios/{id}:
  *   delete:
- *     summary: Portfolioni o'chirish
+ *     summary: Portfolioni o'chirish 123
  *     tags: [Portfolios]
  *     security:
  *       - bearerAuth: []
@@ -583,7 +583,7 @@ router.put("/api/portfolios/:id", authMiddleware, ValidateBody(updatePortfolioSc
  *                   type: string
  *                   example: "Token required"
  */
-router.delete("/api/portfolios/:id", authMiddleware, checkRole("SUPERADMIN"), portfolioController.delete)
+router.delete("/api/portfolios/:id", authMiddleware, portfolioController.delete)
 
 /**
  * @openapi

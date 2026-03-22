@@ -145,5 +145,5 @@ router.post("/api/follow/:userId", authMiddleware, followController.toggle)
  *                   type: string
  *                   example: "User topilmadi"
  */
-router.get("/api/isfollow/:followerId", authMiddleware, followController.checkFollow)g
+router.get("/api/isfollow/:followerId", authMiddleware, followController.checkFollow)
 export const followRouter = router
