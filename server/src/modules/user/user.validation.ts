@@ -8,7 +8,6 @@ export const profileUpdateSchema = z.object({
   secondname: z.string().optional(),
   techstack: z.array(z.string()).optional(),
   profession: z.string().optional(),
-  bio: z.string().optional()
 })
 
 export const changePassworSchema = z.object({
