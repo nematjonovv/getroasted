@@ -61,11 +61,18 @@ class UserService {
 
   }
   async updatedProfile(id: number, data: profileUpdateDto) {
-    const { bio, name, profession, secondname, techstack, username } = data
+    const { name, profession, secondname, techstack, username } = data
+    const usernameMatch = await prisma.user.findFirst({
+      where: { username, NOT: { id: id } },
+    })
+
+    if (usernameMatch) throw new AppError(409, "Username already exist")
+
+    console.log("USERNAME MATCH:", usernameMatch)  // null yoki user objectmi?
+    console.log("THROW TEST:", usernameMatch ? "throw qiladi" : "o'tadi")
     const user = await prisma.user.update({
       where: { id },
       data: {
-        bio,
         name,
         profession,
         secondname,
@@ -74,6 +81,8 @@ class UserService {
       },
       omit: { password: true }
     })
+
+
     return user
   }
   async updateAvatar(id: number, file: Express.Multer.File) {

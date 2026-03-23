@@ -19,7 +19,6 @@ class UserController {
     try {
       const id = req.user?.id
       const data = req.body
-
       const result = await userService.updatedProfile(Number(id), data)
 
       res.status(200).json({ success: true, message: "Updated success" })
