@@ -68,8 +68,6 @@ class UserService {
 
     if (usernameMatch) throw new AppError(409, "Username already exist")
 
-    console.log("USERNAME MATCH:", usernameMatch)  // null yoki user objectmi?
-    console.log("THROW TEST:", usernameMatch ? "throw qiladi" : "o'tadi")
     const user = await prisma.user.update({
       where: { id },
       data: {

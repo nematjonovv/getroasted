@@ -28,7 +28,7 @@ function ProfilePage({ params }: Props) {
                 <p className="text-md syne text-(--text-50) text-center">
                   When you add portfolios, they will appear here for others to roast.
                 </p>
-                <Link href={"/"} className="float-right border border-(--text-50) px-5 py-2 round15 text-sm syne hover:bg-(--accent) transition duration-150 cursor-pointer active:scale-95">Add portfolio</Link>
+                <Link href={"/add-portfolio"} className="float-right border border-(--text-50) px-5 py-2 round15 text-sm syne hover:bg-(--accent) transition duration-150 cursor-pointer active:scale-95">Add portfolio</Link>
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-12 gap-4">

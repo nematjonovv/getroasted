@@ -4,6 +4,9 @@ import { portfolioApi } from "./portfolio.api";
 import { queryClient } from "@/src/shared/lib/queryClient";
 import { IPortfolioResponse, Portfolio } from "./portfolio.type";
 import { useNotification } from "@/src/shared/lib/NotificationProvider";
+import { IErrorFields } from "@/src/shared/types/type";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export function useGetPortfolios() {
   return useQuery({
@@ -74,5 +77,38 @@ export function useDeletePortfolio(id: string, username: string, onSuccess?: (me
     onError: (error: any) => {
       onError?.(error?.response?.data?.message || "Something went wrong")
     },
+  })
+}
+
+
+export function useCreatePortfolio(username: string, onSuccess?: (message: string) => void, onError1?: (message: string) => void, onFieldErrors?: (errors: Record<string, string[]>) => void) {
+  const queryClient = useQueryClient()
+  const router = useRouter()
+
+  return useMutation({
+    mutationFn: (data: FormData) => portfolioApi.createPortfolio(data),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["user", username] })
+      onSuccess?.(data.message)
+      setTimeout(() => {
+        router.push("/profile/me")
+      }, 1500);
+    },
+    onError: ((err) => {
+      if (axios.isAxiosError(err) && err.response?.data) {
+        const data = err.response.data as IErrorFields<{
+          title?: string[]
+          description?: string[]
+          liveLink?: string[]
+          githubLink?: string[]
+          techstack?: string[]
+        }>;
+        if (data.errors && Object.keys(data.errors).length > 0) {
+          onFieldErrors?.(data.errors)
+        } else {
+          onError1?.(data.message)
+        }
+      }
+    })
   })
 }

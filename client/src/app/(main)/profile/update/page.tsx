@@ -209,7 +209,7 @@ export default function ProfileUpdateForm() {
                 className="syne px-8 py-3 font-semibold cursor-pointer text-sm tracking-wider uppercase round15 transition-all duration-200 hover:opacity-95 active:scale-95 bg-(--primary) text-(--text)">
                 Save Profile
               </button>
-              <button onClick={() => router.push("/profile/me")} className="syne px-8 py-3 font-semibold cursor-pointer text-sm tracking-wider uppercase round15 transition-all duration-200 hover:opacity-95 border border-(--text-50 hover:text-red-500 hover:border-red-500) active:scale-95 bg-transparent text-(--text)">CANCEL</button>
+              <button className="syne px-8 py-3 font-semibold cursor-pointer text-sm tracking-wider uppercase round15 transition-all duration-200 hover:opacity-95 border border-(--text-50 hover:text-red-500 hover:border-red-500) active:scale-95 bg-transparent text-(--text)">CANCEL</button>
             </div>
           </div>
         </form>

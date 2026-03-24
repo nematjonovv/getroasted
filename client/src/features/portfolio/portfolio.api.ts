@@ -1,5 +1,5 @@
 import apiReq from "@/src/shared/lib/axios";
-import { IPortfolioResponse, PortfolioDeleteResponse, PortfolioDetailResponse } from "./portfolio.type";
+import { CreatePortfolioResponse, IPortfolioResponse, PortfolioDeleteResponse, PortfolioDetailResponse } from "./portfolio.type";
 
 export const portfolioApi = {
   getPortfolio: (): Promise<IPortfolioResponse> =>
@@ -19,7 +19,7 @@ export const portfolioApi = {
     (portfolioId: string) =>
       apiReq.patch(`/api/portfolios/${portfolioId}/view`).then((v) => v.data),
   deletePortfolio: (id: string): Promise<PortfolioDeleteResponse> =>
-    apiReq.delete(`/api/portfolios/${id}`).then((d) => d.data)
-
+    apiReq.delete(`/api/portfolios/${id}`).then((d) => d.data),
+  createPortfolio: (data: FormData): Promise<CreatePortfolioResponse> => apiReq.post("/api/portfolios", data).then((p) => p.data)
 }
 

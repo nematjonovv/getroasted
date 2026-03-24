@@ -28,6 +28,7 @@ type Props = {
   viewCount: number
   roastOwner: string
   portfolioId: number
+
 }
 
 function Card({ id, desc, isLiked, likeCount, profession,
@@ -62,12 +63,13 @@ function Card({ id, desc, isLiked, likeCount, profession,
     (message) => success(message),
     (message) => error1(message)
   )
+  
   return (
     <div onClick={() => router.push(`/feed/portfolio/${String(portfolioId)}`)} className={`w-full rounded-xl bg-(--surface) hover:bg-(--surface)/50 transition duration-100 cursor-pointer flex flex-col px-7.5 py-5`}>
 
       <div className=" rounded-xl">
         <div className="flex items-center justify-between">
-          <UserCard title={username} />
+          <UserCard title={username}/>
           <div className="flex gap-3">
             <PorfessionBadge title={profession} />
             {isOwner ? <ThreeDot onDelete={() => deleteP()} /> : null}

@@ -69,6 +69,7 @@ export type Portfolio = {
     id: number
     username: string
     profession?: string
+    avatar: string
   }
   roasts: Roast[]
   likeCount: number
@@ -92,4 +93,27 @@ type Roast = {
 export type PortfolioDeleteResponse = {
   success: boolean,
   message: string
-} 
+}
+
+
+
+
+export interface CreatePortfolio {
+  id: number
+  slug: string
+  title: string
+  description: string
+  liveLink: string
+  githubLink: string
+  techstack: string[]
+  createdAt: string
+  updatedAt: string
+  userId: number
+  views: number
+  portfolioImages: PortfolioImage[]
+}
+export interface CreatePortfolioResponse {
+  message: string
+  success: boolean
+  data: CreatePortfolio
+}

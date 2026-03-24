@@ -6,6 +6,7 @@ import FollowButton from "../../follow/components/FollowButton";
 import ProfileSkeleton from "@/src/shared/components/ProfileSkeleton";
 import ProfileThreeDot from "./ProfileThreeDot";
 import { useLogout } from "../../auth/useAuth";
+import ChangeAvatar from "./ChangeAvatar";
 const COLORS = [
   '#ff4d1c',
   '#41b2e6',
@@ -20,8 +21,8 @@ function ProfileCard({ username }: { username: string }) {
   const { isLoading, isOwner, me, user } = useProfilePage(username)
   const userData = user?.data
 
-  const nameFirstLetter = userData?.name?.charAt(0) || userData?.username.slice(0, 1).toUpperCase()
-  const secondNameFirstLetter = userData?.secondname?.charAt(0) || userData?.username.slice(1, 2).toUpperCase()
+  const nameFirstLetter = userData?.username.slice(0, 1).toUpperCase()
+  const secondNameFirstLetter = userData?.username.slice(1, 2).toUpperCase()
 
 
   const getColor = (str: string) => {
@@ -33,15 +34,13 @@ function ProfileCard({ username }: { username: string }) {
     <ProfileSkeleton />
   ) : (
     <div className="w-full flex flex-col items-center space-y-2 border-b-2 border-(--text-20) pb-5">
-      <div className=" px-5.5 py-5.5 bg-(--primary)/20 inline-block rounded-full">
-        {
-          userData?.avatar ?
-            userData?.avatar :
-            <p className="text-(--primary) text-2xl uppercase">
-              {nameFirstLetter}
-              {secondNameFirstLetter}
-            </p>
-        }
+      <div className="w-21 h-20 bg-(--primary)/20 inline-block rounded-full">
+        <div className="relative w-full h-full flex items-center justify-center group  transition duration-300">
+          <p className="text-(--primary) text-2xl uppercase">
+            {nameFirstLetter}
+            {secondNameFirstLetter}
+          </p>
+        </div>
       </div>
       <div className="flex items-center gap-1">
         <p className="text-(--primary)">

@@ -183,6 +183,10 @@ router.get("/api/portfolios/:id", authMiddleware, portfolioController.getById)
  *                   type: string
  *                   format: binary
  *                 maxItems: 5
+ *               techstack:
+ *                 type: array
+ *                 items:
+ *                   type: string
  *     responses:
  *       201:
  *         description: Portfolio muvaffaqiyatli yaratildi

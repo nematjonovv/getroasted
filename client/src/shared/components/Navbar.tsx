@@ -6,7 +6,7 @@ import { useMe } from "@/src/features/auth/useAuth";
 
 const navItems = [
   { icon: Home, href: "/feed" },
-  { icon: PlusSquare, href: "/create" },
+  { icon: PlusSquare, href: "/add-portfolio" },
   { icon: Search, href: "/search" },
   { icon: User, href: "/profile/me" },
 ];
