@@ -4,10 +4,11 @@ class SearchService {
   async search(search: string) {
     const users = await prisma.user.findMany({
       where: {
-        username: {
-          contains: search,
-          mode: "insensitive"
-        }
+        OR: [
+          { username: { contains: search, mode: "insensitive" } },
+          { name: { contains: search, mode: "insensitive" } },
+          { secondname: { contains: search, mode: "insensitive" } },
+        ]
       },
       select: {
         id: true,
