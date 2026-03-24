@@ -11,6 +11,7 @@ import { roastRouter } from './modules/roast/roast.route'
 import { likeRouter } from './modules/like/likes.route'
 import { followRouter } from './modules/follow/follow.route'
 import { adminRouter } from './modules/admin/admin.route'
+import { searchRouter } from './modules/search/search.route'
 const app = express()
 const PORT = 5000
 app.use(express.json())
@@ -32,6 +33,7 @@ app.use("/", portfolioRouter)
 app.use("/", roastRouter)
 app.use("/", likeRouter)
 app.use("/", followRouter)
+app.use("/", searchRouter)
 app.use("/", adminRouter)
 app.get("/test1", (req, res) => {
   res.json({ ok: true })

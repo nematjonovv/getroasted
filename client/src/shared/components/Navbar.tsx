@@ -1,13 +1,12 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { Home, PlusSquare, Search, User } from "lucide-react";
+import { Home, PlusSquare, User } from "lucide-react";
 import { useMe } from "@/src/features/auth/useAuth";
 
 const navItems = [
   { icon: Home, href: "/feed" },
   { icon: PlusSquare, href: "/add-portfolio" },
-  { icon: Search, href: "/search" },
   { icon: User, href: "/profile/me" },
 ];
 function Navbar() {

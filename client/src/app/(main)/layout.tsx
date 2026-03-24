@@ -1,6 +1,7 @@
 "use client"
 import { useMe } from "@/src/features/auth/useAuth";
 import Tabs from "@/src/features/portfolio/components/Tabs";
+import SearchInput from "@/src/features/search/components/SearchInput";
 import Navbar from "@/src/shared/components/Navbar";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -29,8 +30,8 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         </div>
         <Navbar />
       </div>
-      <div className="h-screen flex-1">
-        Who to follow
+      <div className="h-screen flex flex-1 justify-center">
+        <SearchInput />
       </div>
     </div>
   )
