@@ -1,5 +1,6 @@
 import { prisma } from "../../lib/prisma";
 import { AppError } from "../../middleware/errorHandler.middleware";
+import { userNotificationService } from "../notification/notification.service";
 
 class FollowService {
   async toggleFollow(followerId: number, followingId: number) {
@@ -13,6 +14,9 @@ class FollowService {
       await prisma.follow.delete({ where: { id: existing.id } })
       return { followed: false }
     } else {
+      await userNotificationService.create("follow", followerId, followingId)
+      console.log("follow ishladi");
+
       await prisma.follow.create({ data: { followerId, followingId } })
       return { followed: true }
     }

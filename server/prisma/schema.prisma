@@ -35,9 +35,11 @@ model User {
   roasts     Roast[]
   likes      Like[]
 
-  followers Follow[] @relation("following") // meni follow qilganlar
-  following Follow[] @relation("follower")
-  follows   Follow[]
+  followers             Follow[]           @relation("following")
+  following             Follow[]           @relation("follower")
+  notificationsReceived UserNorification[] @relation("received")
+  notificationsSent     UserNorification[] @relation("send")
+  follows               Follow[]
 }
 
 model Portfolio {
@@ -112,4 +114,15 @@ model Follow {
   userId    Int?
 
   @@unique([followerId, followingId])
+}
+
+model UserNorification {
+  id         Int     @unique @default(autoincrement())
+  type       String
+  message    String
+  isRead     Boolean @default(false)
+  toUserId   Int
+  toUser     User    @relation("received", fields: [toUserId], references: [id])
+  fromUserId Int
+  fromUser   User    @relation("send", fields: [fromUserId], references: [id])
 }

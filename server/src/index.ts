@@ -12,6 +12,7 @@ import { likeRouter } from './modules/like/likes.route'
 import { followRouter } from './modules/follow/follow.route'
 import { adminRouter } from './modules/admin/admin.route'
 import { searchRouter } from './modules/search/search.route'
+import { notificationRoute } from './modules/notification/notification.route'
 const app = express()
 const PORT = 5000
 app.use(express.json())
@@ -34,6 +35,7 @@ app.use("/", roastRouter)
 app.use("/", likeRouter)
 app.use("/", followRouter)
 app.use("/", searchRouter)
+app.use("/", notificationRoute)
 app.use("/", adminRouter)
 app.get("/test1", (req, res) => {
   res.json({ ok: true })

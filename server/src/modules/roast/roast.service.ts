@@ -1,11 +1,14 @@
 import { prisma } from "../../lib/prisma";
 import { AppError } from "../../middleware/errorHandler.middleware";
+import { userNotificationService } from "../notification/notification.service";
 import { roastDto } from "./roast.validation";
 
 class RoastService {
   async post(portfolioId: number, userId: number, content: roastDto) {
     const portfolio = await prisma.portfolio.findUnique({ where: { id: portfolioId } })
     if (!portfolio) throw new AppError(404, "Portfolio topilmadi");
+
+    userNotificationService.create("roast", userId, portfolio.userId)
 
     const roast = await prisma.roast.create({
       data: {
