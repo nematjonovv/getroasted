@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${syne.variable} ${dmsans.variable} bg-(--bg)`}>
+      <body className={`${syne.variable} ${dmsans.variable}`}>
         <NotificationProvider>
           <QueryProvider>
             {children}

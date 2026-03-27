@@ -22,7 +22,7 @@ export function useLogin() {
     onSuccess: (data) => {
       localStorage.setItem("access_token", data.token)
       queryClient.invalidateQueries({ queryKey: ["me"] })
-      router.push("/feed")
+      router.push("/")
     }
   })
 }
