@@ -22,6 +22,16 @@ class NotificationController {
       next(error)
     }
   }
+  async markAllRed(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = Number(req.user?.id)
+      const count = await userNotificationService.markAllRead(userId)
+
+      res.status(200).json({ success: true, data: count })
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 

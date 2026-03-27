@@ -15,7 +15,7 @@ function ProfilePage({ params }: Props) {
   return (
     <div className="flex flex-col justify-center pt-10">
       <ProfileCard username={username} />
-      <div className="w-full min-h-screen flex flex-col py-5">
+      <div className="w-full min-h-screen flex flex-col py-5 gap-5">
 
         {
           portfolio?.portfolios.length === 0 ? (

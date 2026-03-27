@@ -38,6 +38,18 @@ class UserNotification {
       where: { toUserId: userId, isRead: false }
     })
   }
+
+  async markAllRead(userId: number) {
+    return await prisma.userNorification.updateMany({
+      where: {
+        toUserId: userId,
+        isRead: false
+      },
+      data: {
+        isRead: true
+      }
+    })
+  }
 }
 
 

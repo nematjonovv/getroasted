@@ -1,9 +1,9 @@
 "use client"
 import { useMe } from "@/src/features/auth/useAuth";
-import Tabs from "@/src/features/portfolio/components/Tabs";
+import Notification from "@/src/features/notification/components/Notification";
 import SearchInput from "@/src/features/search/components/SearchInput";
 import Navbar from "@/src/shared/components/Navbar";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
@@ -21,7 +21,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <div className="flex text-(--text)">
       <div className="h-screen flex-1">
-        Notification
+        <Notification />
       </div>
       <div className="relative flex-2 border-r border-l border-(--text-20) overflow-y-scroll h-screen feed-scroll">
 

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "UserNorification" ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

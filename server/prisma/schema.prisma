@@ -125,4 +125,6 @@ model UserNorification {
   toUser     User    @relation("received", fields: [toUserId], references: [id])
   fromUserId Int
   fromUser   User    @relation("send", fields: [fromUserId], references: [id])
+
+  createdAt DateTime @default(now())
 }

@@ -119,4 +119,47 @@ router.get("/api/messages/unread-count", authMiddleware, notificationController.
 
 
 
+/**
+ * @openapi
+ * /api/messages/read:
+ *   patch:
+ *     summary: Barcha notificationlarni o'qilgan deb belgilash
+ *     tags: [Notifications]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: O'qilgan notificationlar soni
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     count:
+ *                       type: number
+ *                       example: 3
+ *       401:
+ *         description: Token required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Token required"
+ */
+router.patch("/api/messages/read", authMiddleware, notificationController.markAllRed)
+
+
+
 export const notificationRoute = router
