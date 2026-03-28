@@ -1,21 +1,27 @@
-import Sidebar from "@/src/shared/components/admin/Sidebar";
-import { Metadata } from "next";
+"use client"
 
-export const metadata: Metadata = {
-  title: "Get Roasted | Admin Panel",
-  icons: {
-    icon: [
-      { url: '/favicon.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-    ],
-  },
-};
+import { useMe } from "@/src/features/auth/useAuth";
+import Sidebar from "@/src/shared/components/admin/Sidebar";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
 
+  const router = useRouter()
+  const { data: user, isLoading, isError } = useMe()
 
+  useEffect(() => {
+    if (isLoading) return
+    if (isError || !user) {
+      router.push("/login")
+    } else {
+      router.push("/admin/overview")
+    }
+  }, [isLoading, isError, user])
 
   return (
-    <div className="relative bg-(--bg) h-screen max-w-screen flex">
+    <div className="relative bg-(--bg) h-screen max-w-screen flex overflow-hidden">
       <Sidebar />
       {children}
     </div>

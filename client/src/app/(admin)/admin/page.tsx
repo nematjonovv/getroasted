@@ -1,24 +1,15 @@
-"use client"
-import { useMe } from '@/src/features/auth/useAuth';
+import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
-
-function page() {
-  const router = useRouter()
-  const { data: user, isLoading, isError } = useMe()
-
-  useEffect(() => {
-    if (isLoading) return
-    if (isError || !user) {
-      router.push("/login")
-    } else {
-      redirect("/admin/overview")
-    }
-  }, [isLoading, isError, user])
-
-
-}
+export const metadata: Metadata = {
+  title: "Get Roasted | Admin Panel",
+  icons: {
+    icon: [
+      { url: '/favicon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+  },
+};
+function page() {}
 
 export default page;
