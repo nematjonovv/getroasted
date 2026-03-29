@@ -40,6 +40,9 @@ app.use("/", adminRouter)
 app.get("/test1", (req, res) => {
   res.json({ ok: true })
 })
+app.get("/test2", (req, res) => {
+  res.json({ ok: true })
+})
 
 // Error handler
 app.use(errorHandler);

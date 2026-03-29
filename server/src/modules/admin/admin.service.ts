@@ -5,7 +5,9 @@ import { changeRoleDto } from "./admin.validation";
 
 class AdminService {
   async getUsers() {
-    return await prisma.user.findMany({ omit: { password: true }, include: { portfolios: true, roasts: true, following: true, followers: true } })
+    return await prisma.user.findMany({
+      omit: { password: true }, include: { portfolios: true, roasts: true, following: true, followers: true }
+    })
   }
   async removeUser(id: number) {
     if (!id) {
@@ -37,8 +39,16 @@ class AdminService {
     })
   }
 
-  async getPortfolios() {
+  async getPortfolios(title?: string, sort?: "newest" | "oldest") {
     return await prisma.portfolio.findMany({
+      where: {
+        ...(title && {
+          title: { contains: title, mode: 'insensitive' }
+        }),
+      },
+      orderBy: {
+        createdAt: sort === "oldest" ? "asc" : "desc"
+      },
       include: {
         user: {
           select: { id: true, username: true, avatar: true }

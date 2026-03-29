@@ -5,8 +5,8 @@ import { changeRoleDto } from "./admin.validation";
 class AdminController {
   async getUsers(req: Request, res: Response, next: NextFunction) {
     try {
-      const users = await adminService.getUsers()
 
+      const users = await adminService.getUsers()
       res.status(200).json({ message: "Users retrived successfully", success: true, data: users })
     } catch (error) {
       next(error)
@@ -46,7 +46,9 @@ class AdminController {
 
   async getPortfolios(req: Request, res: Response, next: NextFunction) {
     try {
-      const portfolios = await adminService.getPortfolios()
+      const title = req.query.title as string || ""
+      const sort = req.query.sort as "newest" | "oldest"
+      const portfolios = await adminService.getPortfolios(title, sort)
       res.status(200).json({ message: "Portfolios retrieved successfully", success: true, data: portfolios })
     } catch (error) {
       next(error)
@@ -83,13 +85,13 @@ class AdminController {
   }
 
   async getStats(req: Request, res: Response, next: NextFunction) {
-  try {
-    const stats = await adminService.getStats()
-    res.status(200).json({ message: "Stats retrieved successfully", success: true, data: stats })
-  } catch (error) {
-    next(error)
+    try {
+      const stats = await adminService.getStats()
+      res.status(200).json({ message: "Stats retrieved successfully", success: true, data: stats })
+    } catch (error) {
+      next(error)
+    }
   }
-}
 
 }
 
