@@ -46,7 +46,7 @@ class AdminController {
 
   async getPortfolios(req: Request, res: Response, next: NextFunction) {
     try {
-      const title = req.query.title as string || ""
+      const title = req.query.search as string || ""
       const sort = req.query.sort as "newest" | "oldest"
       const portfolios = await adminService.getPortfolios(title, sort)
       res.status(200).json({ message: "Portfolios retrieved successfully", success: true, data: portfolios })

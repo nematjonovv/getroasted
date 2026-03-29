@@ -395,6 +395,21 @@ router.put("/admin/users/:id/role", authMiddleware, checkRole("SUPERADMIN"), adm
  *     tags: [Admin]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Portfolio nomi bo'yicha qidirish
+ *         example: "my portfolio"
+ *       - in: query
+ *         name: sort
+ *         schema:
+ *           type: string
+ *           enum: [newest, oldest]
+ *           default: newest
+ *         description: Saralash tartibi
+ *         example: "newest"
  *     responses:
  *       200:
  *         description: Portfoliolar muvaffaqiyatli olindi
