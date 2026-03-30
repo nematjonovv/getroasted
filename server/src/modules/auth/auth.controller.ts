@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { CreateUserDto, loginDto } from "./auth.validation";
-import { authService } from "./auth.service";
+import { authService } from "./auth.service.js";
 
 type CtrlDto = {
   req: Request

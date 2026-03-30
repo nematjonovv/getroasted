@@ -1,5 +1,5 @@
 import express from "express"
-import { authController } from "./auth.controller"
+import { authController } from "./auth.controller.js"
 import { ValidateBody } from "../../middleware/validate.middleware"
 import { createUserSchema, loginShema } from "./auth.validation"
 import { authMiddleware } from "../../middleware/auth.middleware"
