@@ -3,16 +3,16 @@ import cors from "cors"
 import express from "express"
 import SwaggerUi from "swagger-ui-express"
 import SwaggerSpec from "./config/swagger"
-import { errorHandler } from './middleware/errorHandler.middleware'
-import { authRouter } from './modules/auth/auth.route'
-import { userRoute } from './modules/user/user.route'
-import { portfolioRouter } from './modules/portfolios/portfolios.route'
-import { roastRouter } from './modules/roast/roast.route'
-import { likeRouter } from './modules/like/likes.route'
-import { followRouter } from './modules/follow/follow.route'
-import { adminRouter } from './modules/admin/admin.route'
-import { searchRouter } from './modules/search/search.route'
-import { notificationRoute } from './modules/notification/notification.route'
+import { errorHandler } from './middleware/errorHandler.middleware.js'
+import { authRouter } from './modules/auth/auth.route.js'
+import { userRoute } from './modules/user/user.route.js'
+import { portfolioRouter } from './modules/portfolios/portfolios.route.js'
+import { roastRouter } from './modules/roast/roast.route.js'
+import { likeRouter } from './modules/like/likes.route.js'
+import { followRouter } from './modules/follow/follow.route.js'
+import { adminRouter } from './modules/admin/admin.route.js'
+import { searchRouter } from './modules/search/search.route.js'
+import { notificationRoute } from './modules/notification/notification.route.js'
 const app = express()
 const PORT = 5000
 app.use(express.json())
