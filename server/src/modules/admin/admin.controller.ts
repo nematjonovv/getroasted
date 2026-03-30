@@ -5,8 +5,8 @@ import { changeRoleDto } from "./admin.validation";
 class AdminController {
   async getUsers(req: Request, res: Response, next: NextFunction) {
     try {
-
-      const users = await adminService.getUsers()
+      const username = req.query.username as string || ""
+      const users = await adminService.getUsers(username)
       res.status(200).json({ message: "Users retrived successfully", success: true, data: users })
     } catch (error) {
       next(error)

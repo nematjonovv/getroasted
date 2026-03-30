@@ -67,7 +67,7 @@ model View {
   userId      Int?
   createdAt   DateTime @default(now())
 
-  portfolio Portfolio @relation(fields: [portfolioId], references: [id])
+  portfolio Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
 }
 
 model PortfolioImage {

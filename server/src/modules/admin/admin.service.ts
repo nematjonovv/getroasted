@@ -4,10 +4,31 @@ import { AppError } from "../../middleware/errorHandler.middleware";
 import { changeRoleDto } from "./admin.validation";
 
 class AdminService {
-  async getUsers() {
-    return await prisma.user.findMany({
-      omit: { password: true }, include: { portfolios: true, roasts: true, following: true, followers: true }
+  async getUsers(username: string) {
+    const users = await prisma.user.findMany({
+      where: {
+        OR: [
+          { username: { contains: username, mode: "insensitive" } }
+        ]
+      },
+      omit: {
+        password: true
+      },
+      include: {
+        portfolios: true,
+        roasts: true,
+        following: true,
+        followers: true
+      }
     })
+
+    return users.map(({ followers, following, roasts, portfolios, ...rest }) => ({
+      ...rest,
+      portfolioCount: portfolios.length,
+      roastCount: roasts.length,
+      followerCount: followers.length,
+      followingCount: following.length,
+    }))
   }
   async removeUser(id: number) {
     if (!id) {
@@ -38,7 +59,6 @@ class AdminService {
       }
     })
   }
-
   async getPortfolios(title?: string, sort?: "newest" | "oldest") {
     return await prisma.portfolio.findMany({
       where: {

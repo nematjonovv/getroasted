@@ -14,6 +14,14 @@ const router = express.Router()
  *     tags: [Admin]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: username
+ *         required: false
+ *         schema:
+ *           type: string
+ *           example: "ali_valiyev"
+ *         description: Username bo'yicha filter qilish
  *     responses:
  *       200:
  *         description: Userlar muvaffaqiyatli olindi
@@ -96,8 +104,7 @@ const router = express.Router()
  *                 message:
  *                   type: string
  *                   example: "Ruxsat yo'q"
- */
-router.get("/admin/users", authMiddleware, checkRole("ADMIN", "SUPERADMIN"), adminController.getUsers)
+ */router.get("/admin/users", authMiddleware, checkRole("ADMIN", "SUPERADMIN"), adminController.getUsers)
 
 
 /**
