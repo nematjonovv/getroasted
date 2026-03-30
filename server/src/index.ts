@@ -2,7 +2,7 @@ import 'dotenv/config'
 import cors from "cors"
 import express from "express"
 import SwaggerUi from "swagger-ui-express"
-import SwaggerSpec from "./config/swagger"
+import SwaggerSpec from "./config/swagger.js"
 import { errorHandler } from './middleware/errorHandler.middleware.js'
 import { authRouter } from './modules/auth/auth.route.js'
 import { userRoute } from './modules/user/user.route.js'
