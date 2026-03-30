@@ -1,12 +1,21 @@
+"use client"
 import { Eye, Flame, MessageSquare, Trash } from "lucide-react";
 import { IPortfolio } from "../admin.type";
 import UserCard from "@/src/shared/components/UserCard";
+import { useDeletePortfolio } from "../useAdmin";
+import { useState } from "react";
 
 type Props = {
   portfolio: IPortfolio
 }
 
 function PortfolioCard({ portfolio }: Props) {
+  const [deletePort, setDeletePort] = useState<number>()
+  const { mutate } = useDeletePortfolio(deletePort!)
+  const handleDelete = () => {
+    mutate()
+    setDeletePort(portfolio.id)
+  }
   return (
     <div className="round15 bg-(--card) border border-(--text-20)">
       <div className="w-full h-40">
@@ -37,7 +46,9 @@ function PortfolioCard({ portfolio }: Props) {
         <button className="flex-1 flex items-center justify-center gap-1 h-10 bg-transparent border border-(--text-20) round15 text-(--text-50) hover:border-(--accent) hover:text-(--primary) cursor-pointer">
           <Eye size={18} />Preview
         </button>
-        <button className="flex-1 flex items-center justify-center gap-1 h-10 bg-transparent border border-(--text-20) round15 text-(--text-50) hover:border-red-500 hover:text-red-500 cursor-pointer">
+        <button
+          onClick={() => handleDelete()}
+          className="flex-1 flex items-center justify-center gap-1 h-10 bg-transparent border border-(--text-20) round15 text-(--text-50) hover:border-red-500 hover:text-red-500 cursor-pointer">
           <Trash size={19} />Delete
         </button>
       </div>

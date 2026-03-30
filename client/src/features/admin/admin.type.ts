@@ -29,7 +29,6 @@ export interface IPortfoliosResponse {
   message: string;
   data: IPortfolio[];
 }
-
 export interface IPortfolio {
   id: number;
   slug: string;
@@ -75,4 +74,45 @@ export interface IRoast {
   userId: number;
   createdAt: string;
   updatedAt: string;
+}
+
+/*delete */
+export interface IDeleteUserResponse {
+  success: boolean
+  message: string
+  data: {
+    id: number
+    username: string
+    email: string
+    role: UserRole
+    createdAt: string
+  }
+}
+
+
+// Users
+interface User {
+  id: number
+  username: string
+  email: string
+  name: string
+  secondname: string
+  techstack: string[]
+  profession: string
+  bio: string
+  avatar: string | null
+  isBanned: boolean
+  role: UserRole
+  createdAt: string
+  updatedAt: string
+  portfolioCount: number
+  roastCount: number
+  followerCount: number
+  followingCount: number
+}
+
+export interface UserResponse {
+  message: string
+  success: boolean
+  data: User[]
 }
