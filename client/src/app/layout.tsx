@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { QueryProvider } from "../shared/lib/QueryProvider";
 import { DM_Sans, Syne } from 'next/font/google'
 import { NotificationProvider } from "../shared/lib/NotificationProvider";
+import { Analytics } from '@vercel/analytics/next';
 export const metadata: Metadata = {
   title: "Get Roasted | Home",
   icons: {
@@ -39,6 +40,7 @@ export default function RootLayout({
             {children}
           </QueryProvider>
         </NotificationProvider>
+        <Analytics />
       </body>
     </html>
   );
