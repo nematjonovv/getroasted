@@ -1,17 +1,28 @@
+"use client"
+import { Ban, User } from "lucide-react";
+import { UseBan } from "../useAdmin";
 
-import { Ban, BanIcon, Trash2 } from "lucide-react";
-
-function UserActionsButton({ userId }: { userId: number }) {
+function UserActionsButton({ userId, isBanned }: { userId: number, isBanned: boolean }) {
+  const { mutate: ban } = UseBan(userId)
   return (
     <div className="w-full h-full flex justify-center items-center gap-2">
-      {/* <button
-        className="cursor-pointer text-sm syne hover:text-red-500 transition duration-150">
-        <Trash2 />
-      </button> */}
-      <button
-        className="cursor-pointer text-sm syne hover:text-red-500 transition duration-150">
-        <Ban />
-      </button>
+      {
+        isBanned ? (
+          <button
+            onClick={() => ban()}
+            title="Switch to Admin this user"
+            className="cursor-pointer text-sm syne hover:text-red-500 transition duration-150">
+            <User />
+          </button>
+        ) : (
+          <button
+            onClick={() => ban()}
+            title="Ban this user"
+            className="cursor-pointer text-sm syne hover:text-red-500 transition duration-150">
+            <Ban />
+          </button>
+        )
+      }
     </div>
   );
 }

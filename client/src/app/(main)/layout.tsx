@@ -14,14 +14,12 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     if (isLoading) return
     if (isError || !user) {
       router.push("/login")
+      return
     }
-
-    if (user?.user.role === "SUPERADMIN" || user?.user.role === "ADMIN") {
+    if (user.user.role !== "USER") {
       router.push("/admin")
     }
   }, [isLoading, isError, user])
-
-
   return (
     <div className="flex text-(--text) bg-(--bg)">
       <div className="h-screen flex-1">

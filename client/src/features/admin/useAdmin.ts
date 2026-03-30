@@ -37,3 +37,26 @@ export function useGetAdminUsers({ search }: { search: string }) {
     staleTime: 0
   })
 }
+
+export function UseBan(id: number) {
+  const queryClient = useQueryClient()
+  const { success } = useNotification()
+  return useMutation({
+    mutationFn: () => adminApi.banUser(id),
+    mutationKey: ["banuser"],
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["admin-users"] })
+      success(data.message)
+    }
+  })
+}
+export function useChangeRole(id: number, role: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: () => adminApi.changeRole(id, role),
+    mutationKey: ["changerole"],
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admin-users"] })
+    }
+  })
+}

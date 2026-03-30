@@ -1,4 +1,6 @@
 import Menu from "@/src/features/admin/components/Menu";
+// import { useLogout } from "@/src/features/auth/useAuth";
+// import { LogOut } from "lucide-react";
 
 function Sidebar() {
   return (
@@ -8,6 +10,11 @@ function Sidebar() {
         <p className="text-2xl text-(--text) font-bold">GET ROASTED</p>
       </div>
       <Menu />
+      {/* <button
+        onClick={() => useLogout()}
+        className="transition duration-150 hover:text-red-500 text-lg syne">
+        Log out <LogOut />
+      </button> */}
     </div>
   );
 }

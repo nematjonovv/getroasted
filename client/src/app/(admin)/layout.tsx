@@ -15,11 +15,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     if (isLoading) return
     if (isError || !user) {
       router.push("/login")
-    } else {
-      router.push("/admin/overview")
+      return
+    }
+    if (user.user.role === "USER") {
+      router.push("/")
     }
   }, [isLoading, isError, user])
-
   return (
     <div className="relative bg-(--bg) h-screen max-w-screen flex overflow-hidden">
       <Sidebar />

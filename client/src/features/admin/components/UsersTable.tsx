@@ -112,7 +112,7 @@ function UsersTable() {
                       </td>
 
                       <td>
-                        <UserActionsButton userId={5} />
+                        <UserActionsButton userId={user.id} isBanned={user.isBanned} />
                       </td>
                     </tr>
                   ))

@@ -1,5 +1,5 @@
 import apiReq from "@/src/shared/lib/axios";
-import { IDeleteUserResponse, IPortfoliosResponse, IStatsResponse, UserResponse } from "./admin.type";
+import { BanUserResponse, changeRoleResponse, IDeleteUserResponse, IPortfoliosResponse, IStatsResponse, UserResponse } from "./admin.type";
 
 
 export const adminApi = {
@@ -16,5 +16,11 @@ export const adminApi = {
       .then((p) => p.data),
   getAdminUsers: (search: string): Promise<UserResponse> =>
     apiReq.get(`/admin/users?username=${search}`,)
-      .then((p) => p.data)
+      .then((p) => p.data),
+  banUser: (id: number): Promise<BanUserResponse> =>
+    apiReq.put(`/admin/users/${id}/ban`)
+      .then((b) => b.data),
+  changeRole: (id: number, role: string): Promise<changeRoleResponse> =>
+    apiReq.put(`/admin/users/${id}/ban`, role)
+      .then((c) => c.data),
 }

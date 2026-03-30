@@ -116,3 +116,19 @@ export interface UserResponse {
   success: boolean
   data: User[]
 }
+
+
+// BAN USER
+export interface BanUserResponse {
+  success: boolean
+  message: string
+  data: {
+    id: number
+    username: string
+    isBanned: boolean
+  }
+}
+export interface changeRoleResponse {
+  success: boolean
+  message: string
+}
