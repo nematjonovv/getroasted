@@ -12,6 +12,15 @@ class AdminController {
       next(error)
     }
   }
+  async getAdmins(req: Request, res: Response, next: NextFunction) {
+    try {
+      const admin = req.query.admin as string || ""
+      const users = await adminService.getAdmins(admin)
+      res.status(200).json({ message: "Admins retrived successfully", success: true, data: users })
+    } catch (error) {
+      next(error)
+    }
+  }
   async removeUser(req: Request, res: Response, next: NextFunction) {
     try {
       const id = Number(req.params.id)

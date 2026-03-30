@@ -14,14 +14,6 @@ const router = express.Router()
  *     tags: [Admin]
  *     security:
  *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: username
- *         required: false
- *         schema:
- *           type: string
- *           example: "ali_valiyev"
- *         description: Username bo'yicha filter qilish
  *     responses:
  *       200:
  *         description: Userlar muvaffaqiyatli olindi
@@ -104,7 +96,100 @@ const router = express.Router()
  *                 message:
  *                   type: string
  *                   example: "Ruxsat yo'q"
- */router.get("/admin/users", authMiddleware, checkRole("ADMIN", "SUPERADMIN"), adminController.getUsers)
+ */
+router.get("/admin/users", authMiddleware, checkRole("ADMIN", "SUPERADMIN"), adminController.getUsers)
+/**
+ * @openapi
+ * /admin/admins:
+ *   get:
+ *     summary: Barcha adminlarni olish
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Userlar muvaffaqiyatli olindi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Users retrived successfully"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: number
+ *                         example: 1
+ *                       username:
+ *                         type: string
+ *                         example: "ali_valiyev"
+ *                       name:
+ *                         type: string
+ *                         example: "Ali"
+ *                       secondname:
+ *                         type: string
+ *                         example: "Valiyev"
+ *                       avatar:
+ *                         type: string
+ *                         example: "https://cloudinary.com/avatar.jpg"
+ *                       role:
+ *                         type: string
+ *                         example: "USER"
+ *                       portfolios:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                       roasts:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                       followers:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                       following:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                       createdAt:
+ *                         type: string
+ *                         example: "2024-01-01T00:00:00.000Z"
+ *       401:
+ *         description: Token required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Token required"
+ *       403:
+ *         description: Ruxsat yo'q
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Ruxsat yo'q"
+ */
+router.get("/admin/admins", authMiddleware, checkRole("ADMIN", "SUPERADMIN"), adminController.getAdmins)
 
 
 /**
