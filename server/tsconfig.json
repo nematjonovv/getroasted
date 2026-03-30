@@ -6,19 +6,13 @@
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "ignoreDeprecations": "6.0",
+    "moduleResolution": "node10",
     "resolveJsonModule": true,
     "sourceMap": true,
-    "types": [
-      "node",
-      "express"
-    ],
+    "types": ["node", "express"],
     "skipLibCheck": true
   },
-  "include": [
-    "src/**/*"
-  ],
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules",
     "dist",
