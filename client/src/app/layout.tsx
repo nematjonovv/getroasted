@@ -36,6 +36,7 @@ export default function RootLayout({
       <body className={`${syne.variable} ${dmsans.variable}`}>
         <NotificationProvider>
           <QueryProvider>
+            <Analytics />
             {children}
           </QueryProvider>
         </NotificationProvider>
