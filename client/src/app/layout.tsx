@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../style/globals.css";
+import { Analytics } from "@vercel/analytics/next"
 import { QueryProvider } from "../shared/lib/QueryProvider";
 import { DM_Sans, Syne } from 'next/font/google'
 import { NotificationProvider } from "../shared/lib/NotificationProvider";
