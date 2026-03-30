@@ -1,5 +1,5 @@
+import { Role } from "@prisma/client"
 import z from "zod"
-import { Role } from "../../generated/prisma/enums"
 
 export const changeRoleSchema = z.object({
   role: z.enum(Object.values(Role) as [string, ...string[]], {
